@@ -69,7 +69,7 @@ def main(args):
                 train_data = tr_loader,
                 validation_data = cv_loader,
                 test_data = tt_loader) 
-    # solver.train()
+    solver.train()
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser("Conv-tasnet")
