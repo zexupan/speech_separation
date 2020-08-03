@@ -141,6 +141,70 @@ def _collate_fn(batch):
     sources_pad = sources_pad.permute((0, 2, 1)).contiguous()
     return mixtures_pad, ilens, sources_pad
 
+def load_mixtures_and_sources(batch):
+    """
+    Each info include wav path and wav duration.
+    Returns:
+        mixtures: a list containing B items, each item is T np.ndarray
+        sources: a list containing B items, each item is T x C np.ndarray
+        T varies from item to item.
+    """
+    mixtures, sources = [], []
+    mix_infos, s1_infos, s2_infos, sample_rate, segment_len = batch
+    # for each utterance
+    for mix_info, s1_info, s2_info in zip(mix_infos, s1_infos, s2_infos):
+        mix_path = mix_info[0]
+        s1_path = s1_info[0]
+        s2_path = s2_info[0]
+        assert mix_info[1] == s1_info[1] and s1_info[1] == s2_info[1]
+        # read wav file
+        mix, _ = librosa.load(mix_path, sr=sample_rate)
+        s1, _ = librosa.load(s1_path, sr=sample_rate)
+        s2, _ = librosa.load(s2_path, sr=sample_rate)
+        # merge s1 and s2
+        s = np.dstack((s1, s2))[0]  # T x C, C = 2
+        utt_len = mix.shape[-1]
+        if segment_len >= 0:
+            # segment
+            for i in range(0, utt_len - segment_len + 1, segment_len):
+                mixtures.append(mix[i:i+segment_len])
+                sources.append(s[i:i+segment_len])
+            if utt_len % segment_len != 0:
+                mixtures.append(mix[-segment_len:])
+                sources.append(s[-segment_len:])
+        else:  # full utterance
+            mixtures.append(mix)
+            sources.append(s)
+    return mixtures, sources
+
+
+def load_mixtures(batch):
+    """
+    Returns:
+        mixtures: a list containing B items, each item is T np.ndarray
+        filenames: a list containing B strings
+        T varies from item to item.
+    """
+    mixtures, filenames = [], []
+    mix_infos, sample_rate = batch
+    # for each utterance
+    for mix_info in mix_infos:
+        mix_path = mix_info[0]
+        # read wav file
+        mix, _ = librosa.load(mix_path, sr=sample_rate)
+        mixtures.append(mix)
+        filenames.append(mix_path)
+    return mixtures, filenames
+
+
+def pad_list(xs, pad_value):
+    n_batch = len(xs)
+    max_len = max(x.size(0) for x in xs)
+    pad = xs[0].new(n_batch, max_len, * xs[0].size()[1:]).fill_(pad_value)
+    for i in range(n_batch):
+        pad[i, :xs[i].size(0)] = xs[i]
+    return pad
+
 
 class DistributedSampler(data.Sampler):
     def __init__(self, dataset, num_replicas=None, rank=None, shuffle=True, seed=0):
