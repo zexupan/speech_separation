@@ -159,6 +159,7 @@ class Solver(object):
         return total_loss / (i+1)
 
     def _reduce_tensor(self, tensor):
+        if not self.args.distributed: return tensor
         rt = tensor.clone()
         dist.all_reduce(rt, op=dist.ReduceOp.SUM)
         rt /= self.args.world_size
