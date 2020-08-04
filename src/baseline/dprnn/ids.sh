@@ -1,6 +1,6 @@
 #!/bin/sh
 
-gpu_id=11,12
+gpu_id=14,15
 
 continue_from=''
 
@@ -15,9 +15,9 @@ CUDA_VISIBLE_DEVICES="$gpu_id" \
 python -W ignore \
 -m torch.distributed.launch \
 --nproc_per_node=2 \
---master_port=7786 \
+--master_port=7886 \
 main.py \
---batch_size 8 \
+--batch_size 4 \
 \
 --log_name $log_name \
 \
