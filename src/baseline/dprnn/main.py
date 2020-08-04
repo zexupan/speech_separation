@@ -97,7 +97,7 @@ if __name__ == '__main__':
                         help='Number of maximum epochs')
 
     # Model hyperparameters
-    parser.add_argument('--L', default=4, type=int,
+    parser.add_argument('--L', default=2, type=int,
                         help='Length of the filters in samples (80=5ms at 16kHZ)')
     parser.add_argument('--N', default=256, type=int,
                         help='Number of input channels')
