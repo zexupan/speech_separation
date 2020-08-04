@@ -14,8 +14,8 @@ fi
 CUDA_VISIBLE_DEVICES="$gpu_id" \
 python -W ignore \
 -m torch.distributed.launch \
---nproc_per_node=1 \
---master_port=9986 \
+--nproc_per_node=2 \
+--master_port=1152 \
 main.py \
 --batch_size 2 \
 \
