@@ -1,7 +1,7 @@
 #!/bin/sh
 #SBATCH --gres=gpu:1
 #SBATCH --output=hlt.txt
-#SBATCH --nodelist=ttnusa3
+#SBATCH --nodelist=ttnusa4
 
 
 log_name='Dprnn_'$(date '+%d-%m-%Y(%H:%M:%S)')
@@ -21,6 +21,7 @@ main.py \
 \
 --log_name $log_name \
 \
+--opt-level O1 \
 # --use_tensorboard 1 \
 # >logs/$log_name/console.txt 2>&1
 
