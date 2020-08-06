@@ -131,7 +131,7 @@ class Solver(object):
 
     def _run_one_epoch(self, data_loader, validation=False):
         total_loss = 0
-        for i, (data) in enumerate(tqdm.tqdm(data_loader)):
+        for i, (data) in enumerate(data_loader):
             padded_mixture, mixture_lengths, padded_source = data
 
             padded_mixture = padded_mixture.cuda()
@@ -144,7 +144,7 @@ class Solver(object):
 
             loss = 0 - torch.mean(max_snr)
 
-            print(loss.item())
+            # print(loss.item())
   
             if not validation:
                 self.optimizer.zero_grad()
