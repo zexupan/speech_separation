@@ -2,7 +2,7 @@
 
 gpu_id=5,6
 
-continue_from=''
+continue_from=
 
 if [ -z ${continue_from} ]; then
 	log_name='dpaNet_'$(date '+%d-%m-%Y(%H:%M:%S)')
