@@ -1,0 +1,545 @@
+started on Conv_04-08-2020(16:29:35)
+
+Namespace(B=256, C=2, H=512, L=20, N=256, P=3, R=4, X=8, batch_size=3, continue_from='', cv_maxlen=8, distributed=False, epochs=100, keep_batchnorm_fp32=None, local_rank=0, log_name='Conv_04-08-2020(16:29:35)', lr=0.001, max_norm=5, num_workers=4, opt_level='O0', patch_torch_functions=None, sample_rate=8000, segment=4, test_dir='/data07/zexu/workspace/speech_separation/data/tt', train_dir='/data07/zexu/workspace/speech_separation/data/tr', use_tensorboard=1, valid_dir='/data07/zexu/workspace/speech_separation/data/cv', world_size=1)
+
+Total number of parameters: 8710720 
+
+ConvTasNet(
+  (encoder): Encoder(
+    (conv1d_U): Conv1d(1, 256, kernel_size=(20,), stride=(10,), bias=False)
+  )
+  (separator): TemporalConvNet(
+    (network): Sequential(
+      (0): ChannelWiseLayerNorm((256,), eps=1e-05, elementwise_affine=True)
+      (1): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+      (2): Sequential(
+        (0): Sequential(
+          (0): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(1,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (1): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (2): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(4,), dilation=(4,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (3): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(8,), dilation=(8,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (4): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(16,), dilation=(16,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (5): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(32,), dilation=(32,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (6): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(64,), dilation=(64,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (7): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(128,), dilation=(128,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+        )
+        (1): Sequential(
+          (0): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(1,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (1): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (2): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(4,), dilation=(4,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (3): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(8,), dilation=(8,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (4): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(16,), dilation=(16,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (5): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(32,), dilation=(32,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (6): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(64,), dilation=(64,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (7): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(128,), dilation=(128,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+        )
+        (2): Sequential(
+          (0): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(1,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (1): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (2): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(4,), dilation=(4,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (3): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(8,), dilation=(8,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (4): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(16,), dilation=(16,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (5): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(32,), dilation=(32,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (6): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(64,), dilation=(64,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (7): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(128,), dilation=(128,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+        )
+        (3): Sequential(
+          (0): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(1,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (1): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (2): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(4,), dilation=(4,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (3): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(8,), dilation=(8,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (4): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(16,), dilation=(16,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (5): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(32,), dilation=(32,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (6): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(64,), dilation=(64,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (7): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(128,), dilation=(128,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+        )
+      )
+      (3): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+    )
+  )
+  (decoder): Decoder(
+    (basis_signals): Linear(in_features=256, out_features=20, bias=False)
+  )
+)
+Drop 2925 utts(0.26 h) which is short than 32000 samples
+Selected optimization level O0:  Pure FP32 training.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O0
+cast_model_type        : torch.float32
+patch_torch_functions  : False
+keep_batchnorm_fp32    : None
+master_weights         : False
+loss_scale             : 1.0
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O0
+cast_model_type        : torch.float32
+patch_torch_functions  : False
+keep_batchnorm_fp32    : None
+master_weights         : False
+loss_scale             : 1.0
+Warning:  multi_tensor_applier fused unscale kernel is unavailable, possibly because apex was installed without --cuda_ext --cpp_ext. Using Python fallback.  Original ImportError was: ModuleNotFoundError("No module named 'amp_C'",)
+Start new training
+/data07/zexu/workspace/speech_separation/src/baseline/convTasnet/ConvTasnet.py:282: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than tensor.new_tensor(sourceTensor).
+  frame = signal.new_tensor(frame).long()  # signal may in GPU or CPU
+Train Summary | End of Epoch 1 | Time 4059.37s | Train Loss -7.427
+Valid Summary | End of Epoch 1 | Time 966.20s | Valid Loss -9.699
+Test Summary | End of Epoch 1 | Time 270.04s | Test Loss -9.389
+Fund new best model, dict saved
+Train Summary | End of Epoch 2 | Time 4925.50s | Train Loss -10.445
+Valid Summary | End of Epoch 2 | Time 757.48s | Valid Loss -11.180
+Test Summary | End of Epoch 2 | Time 416.79s | Test Loss -10.945
+Fund new best model, dict saved
+Train Summary | End of Epoch 3 | Time 5809.04s | Train Loss -11.529
+Valid Summary | End of Epoch 3 | Time 1706.34s | Valid Loss -11.912

@@ -1,0 +1,421 @@
+started on Dprnn_08-08-2020(17:43:08)
+
+Namespace(B=64, C=2, H=128, K=100, L=20, N=256, R=6, batch_size=8, continue_from='', cv_maxlen=8, distributed=False, epochs=100, keep_batchnorm_fp32=None, local_rank=0, log_name='Dprnn_08-08-2020(17:43:08)', lr=0.001, max_norm=5, num_workers=4, opt_level='O0', patch_torch_functions=None, sample_rate=8000, segment=4, test_dir='/data07/zexu/workspace/speech_separation/data/tt', train_dir='/data07/zexu/workspace/speech_separation/data/tr', use_tensorboard=1, valid_dir='/data07/zexu/workspace/speech_separation/data/cv', world_size=1)
+
+Total number of parameters: 2642689 
+
+dprnn(
+  (encoder): Encoder(
+    (conv1d_U): Conv1d(1, 256, kernel_size=(20,), stride=(10,), bias=False)
+  )
+  (separator): rnn(
+    (layer_norm): GroupNorm(1, 256, eps=1e-08, affine=True)
+    (bottleneck_conv1x1): Conv1d(256, 64, kernel_size=(1,), stride=(1,), bias=False)
+    (dual_rnn): ModuleList(
+      (0): Dual_RNN_Block(
+        (intra_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (inter_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (intra_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (inter_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (intra_linear): Linear(in_features=256, out_features=64, bias=True)
+        (inter_linear): Linear(in_features=256, out_features=64, bias=True)
+      )
+      (1): Dual_RNN_Block(
+        (intra_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (inter_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (intra_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (inter_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (intra_linear): Linear(in_features=256, out_features=64, bias=True)
+        (inter_linear): Linear(in_features=256, out_features=64, bias=True)
+      )
+      (2): Dual_RNN_Block(
+        (intra_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (inter_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (intra_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (inter_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (intra_linear): Linear(in_features=256, out_features=64, bias=True)
+        (inter_linear): Linear(in_features=256, out_features=64, bias=True)
+      )
+      (3): Dual_RNN_Block(
+        (intra_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (inter_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (intra_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (inter_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (intra_linear): Linear(in_features=256, out_features=64, bias=True)
+        (inter_linear): Linear(in_features=256, out_features=64, bias=True)
+      )
+      (4): Dual_RNN_Block(
+        (intra_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (inter_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (intra_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (inter_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (intra_linear): Linear(in_features=256, out_features=64, bias=True)
+        (inter_linear): Linear(in_features=256, out_features=64, bias=True)
+      )
+      (5): Dual_RNN_Block(
+        (intra_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (inter_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (intra_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (inter_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (intra_linear): Linear(in_features=256, out_features=64, bias=True)
+        (inter_linear): Linear(in_features=256, out_features=64, bias=True)
+      )
+    )
+    (prelu): PReLU(num_parameters=1)
+    (mask_conv1x1): Conv1d(64, 512, kernel_size=(1,), stride=(1,), bias=False)
+  )
+  (decoder): Decoder(
+    (basis_signals): Linear(in_features=256, out_features=20, bias=False)
+  )
+)
+Drop 2925 utts(0.26 h) which is short than 32000 samples
+Selected optimization level O0:  Pure FP32 training.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O0
+cast_model_type        : torch.float32
+patch_torch_functions  : False
+keep_batchnorm_fp32    : None
+master_weights         : False
+loss_scale             : 1.0
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O0
+cast_model_type        : torch.float32
+patch_torch_functions  : False
+keep_batchnorm_fp32    : None
+master_weights         : False
+loss_scale             : 1.0
+Warning:  multi_tensor_applier fused unscale kernel is unavailable, possibly because apex was installed without --cuda_ext --cpp_ext. Using Python fallback.  Original ImportError was: ModuleNotFoundError("No module named 'amp_C'",)
+Start new training
+/data07/zexu/workspace/speech_separation/src/baseline/dprnn/dprnn.py:297: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than tensor.new_tensor(sourceTensor).
+  frame = signal.new_tensor(frame).long()  # signal may in GPU or CPU
+Train Summary | End of Epoch 1 | Time 1125.56s | Train Loss -7.348
+Valid Summary | End of Epoch 1 | Time 184.60s | Valid Loss -9.875
+Test Summary | End of Epoch 1 | Time 109.01s | Test Loss -9.680
+Fund new best model, dict saved
+Train Summary | End of Epoch 2 | Time 1145.07s | Train Loss -10.488
+Valid Summary | End of Epoch 2 | Time 190.21s | Valid Loss -11.013
+Test Summary | End of Epoch 2 | Time 110.35s | Test Loss -10.634
+Fund new best model, dict saved
+Train Summary | End of Epoch 3 | Time 1160.03s | Train Loss -11.665
+Valid Summary | End of Epoch 3 | Time 188.98s | Valid Loss -12.085
+Test Summary | End of Epoch 3 | Time 110.60s | Test Loss -11.671
+Fund new best model, dict saved
+Train Summary | End of Epoch 4 | Time 1152.55s | Train Loss -12.403
+Valid Summary | End of Epoch 4 | Time 191.89s | Valid Loss -12.418
+Test Summary | End of Epoch 4 | Time 111.18s | Test Loss -12.031
+Fund new best model, dict saved
+Train Summary | End of Epoch 5 | Time 1142.52s | Train Loss -12.922
+Valid Summary | End of Epoch 5 | Time 193.00s | Valid Loss -13.076
+Test Summary | End of Epoch 5 | Time 111.44s | Test Loss -12.829
+Fund new best model, dict saved
+Train Summary | End of Epoch 6 | Time 1138.25s | Train Loss -13.382
+Valid Summary | End of Epoch 6 | Time 193.76s | Valid Loss -13.294
+Test Summary | End of Epoch 6 | Time 110.02s | Test Loss -12.926
+Fund new best model, dict saved
+Train Summary | End of Epoch 7 | Time 1136.79s | Train Loss -13.742
+Valid Summary | End of Epoch 7 | Time 189.94s | Valid Loss -13.600
+Test Summary | End of Epoch 7 | Time 112.16s | Test Loss -13.214
+Fund new best model, dict saved
+Train Summary | End of Epoch 8 | Time 1137.63s | Train Loss -14.062
+Valid Summary | End of Epoch 8 | Time 191.61s | Valid Loss -13.757
+Test Summary | End of Epoch 8 | Time 110.60s | Test Loss -13.397
+Fund new best model, dict saved
+Train Summary | End of Epoch 9 | Time 1136.13s | Train Loss -14.322
+Valid Summary | End of Epoch 9 | Time 191.60s | Valid Loss -13.921
+Test Summary | End of Epoch 9 | Time 115.44s | Test Loss -13.751
+Fund new best model, dict saved
+Train Summary | End of Epoch 10 | Time 1138.21s | Train Loss -14.579
+Valid Summary | End of Epoch 10 | Time 193.65s | Valid Loss -14.087
+Test Summary | End of Epoch 10 | Time 111.89s | Test Loss -13.698
+Fund new best model, dict saved
+Train Summary | End of Epoch 11 | Time 1143.04s | Train Loss -14.810
+Valid Summary | End of Epoch 11 | Time 200.91s | Valid Loss -14.278
+Test Summary | End of Epoch 11 | Time 113.27s | Test Loss -13.974
+Fund new best model, dict saved
+Train Summary | End of Epoch 12 | Time 1140.10s | Train Loss -15.032
+Valid Summary | End of Epoch 12 | Time 193.35s | Valid Loss -14.468
+Test Summary | End of Epoch 12 | Time 113.08s | Test Loss -14.109
+Fund new best model, dict saved
+Train Summary | End of Epoch 13 | Time 1139.23s | Train Loss -15.213
+Valid Summary | End of Epoch 13 | Time 193.10s | Valid Loss -14.559
+Test Summary | End of Epoch 13 | Time 112.77s | Test Loss -13.987
+Fund new best model, dict saved
+Train Summary | End of Epoch 14 | Time 1139.26s | Train Loss -15.388
+Valid Summary | End of Epoch 14 | Time 191.53s | Valid Loss -14.853
+Test Summary | End of Epoch 14 | Time 111.90s | Test Loss -14.437
+Fund new best model, dict saved
+Train Summary | End of Epoch 15 | Time 1138.32s | Train Loss -15.548
+Valid Summary | End of Epoch 15 | Time 191.78s | Valid Loss -14.654
+Test Summary | End of Epoch 15 | Time 111.18s | Test Loss -14.258
+Train Summary | End of Epoch 16 | Time 1144.62s | Train Loss -15.708
+Valid Summary | End of Epoch 16 | Time 194.96s | Valid Loss -14.990
+Test Summary | End of Epoch 16 | Time 110.52s | Test Loss -14.540
+Fund new best model, dict saved
+Train Summary | End of Epoch 17 | Time 1138.89s | Train Loss -15.870
+Valid Summary | End of Epoch 17 | Time 190.12s | Valid Loss -14.892
+Test Summary | End of Epoch 17 | Time 112.75s | Test Loss -14.569
+Train Summary | End of Epoch 18 | Time 1137.49s | Train Loss -15.998
+Valid Summary | End of Epoch 18 | Time 191.53s | Valid Loss -14.906
+Test Summary | End of Epoch 18 | Time 109.97s | Test Loss -14.431
+Train Summary | End of Epoch 19 | Time 1140.01s | Train Loss -16.107
+Valid Summary | End of Epoch 19 | Time 189.41s | Valid Loss -15.033
+Test Summary | End of Epoch 19 | Time 111.73s | Test Loss -14.576
+Fund new best model, dict saved
+Train Summary | End of Epoch 20 | Time 1140.32s | Train Loss -16.232
+Valid Summary | End of Epoch 20 | Time 193.44s | Valid Loss -15.123
+Test Summary | End of Epoch 20 | Time 110.16s | Test Loss -14.682
+Fund new best model, dict saved
+Train Summary | End of Epoch 21 | Time 1140.64s | Train Loss -16.349
+Valid Summary | End of Epoch 21 | Time 189.66s | Valid Loss -15.123
+Test Summary | End of Epoch 21 | Time 110.69s | Test Loss -14.695
+Fund new best model, dict saved
+Train Summary | End of Epoch 22 | Time 1141.33s | Train Loss -16.406
+Valid Summary | End of Epoch 22 | Time 189.73s | Valid Loss -15.228
+Test Summary | End of Epoch 22 | Time 112.44s | Test Loss -14.784
+Fund new best model, dict saved
+Train Summary | End of Epoch 23 | Time 1139.02s | Train Loss -16.542
+Valid Summary | End of Epoch 23 | Time 189.10s | Valid Loss -15.292
+Test Summary | End of Epoch 23 | Time 110.76s | Test Loss -15.013
+Fund new best model, dict saved
+Train Summary | End of Epoch 24 | Time 1136.63s | Train Loss -16.634
+Valid Summary | End of Epoch 24 | Time 190.19s | Valid Loss -15.320
+Test Summary | End of Epoch 24 | Time 110.18s | Test Loss -14.847
+Fund new best model, dict saved
+Train Summary | End of Epoch 25 | Time 1138.33s | Train Loss -16.716
+Valid Summary | End of Epoch 25 | Time 189.03s | Valid Loss -15.179
+Test Summary | End of Epoch 25 | Time 110.42s | Test Loss -14.823
+Train Summary | End of Epoch 26 | Time 1137.18s | Train Loss -16.769
+Valid Summary | End of Epoch 26 | Time 190.03s | Valid Loss -15.021
+Test Summary | End of Epoch 26 | Time 110.43s | Test Loss -14.557
+Train Summary | End of Epoch 27 | Time 1136.46s | Train Loss -16.871
+Valid Summary | End of Epoch 27 | Time 189.52s | Valid Loss -15.355
+Test Summary | End of Epoch 27 | Time 111.51s | Test Loss -14.961
+Fund new best model, dict saved
+Train Summary | End of Epoch 28 | Time 1136.04s | Train Loss -16.971
+Valid Summary | End of Epoch 28 | Time 191.05s | Valid Loss -15.479
+Test Summary | End of Epoch 28 | Time 110.80s | Test Loss -15.160
+Fund new best model, dict saved
+Train Summary | End of Epoch 29 | Time 1135.00s | Train Loss -17.015
+Valid Summary | End of Epoch 29 | Time 191.24s | Valid Loss -15.658
+Test Summary | End of Epoch 29 | Time 110.13s | Test Loss -15.366
+Fund new best model, dict saved
+Train Summary | End of Epoch 30 | Time 1132.63s | Train Loss -17.084
+Valid Summary | End of Epoch 30 | Time 192.78s | Valid Loss -15.066
+Test Summary | End of Epoch 30 | Time 111.10s | Test Loss -14.761
+Train Summary | End of Epoch 31 | Time 1133.69s | Train Loss -17.186
+Valid Summary | End of Epoch 31 | Time 189.29s | Valid Loss -15.220
+Test Summary | End of Epoch 31 | Time 110.15s | Test Loss -14.823
+Train Summary | End of Epoch 32 | Time 1133.40s | Train Loss -17.230
+Valid Summary | End of Epoch 32 | Time 190.50s | Valid Loss -15.281
+Test Summary | End of Epoch 32 | Time 110.84s | Test Loss -14.900
+Train Summary | End of Epoch 33 | Time 1133.39s | Train Loss -17.304
+Valid Summary | End of Epoch 33 | Time 190.30s | Valid Loss -15.180
+Test Summary | End of Epoch 33 | Time 111.57s | Test Loss -14.855
+Train Summary | End of Epoch 34 | Time 1141.72s | Train Loss -17.354
+Valid Summary | End of Epoch 34 | Time 188.42s | Valid Loss -15.048
+Test Summary | End of Epoch 34 | Time 111.82s | Test Loss -14.866
+Train Summary | End of Epoch 35 | Time 1145.69s | Train Loss -17.424
+Valid Summary | End of Epoch 35 | Time 189.80s | Valid Loss -15.240
+Test Summary | End of Epoch 35 | Time 109.93s | Test Loss -14.934
+Train Summary | End of Epoch 36 | Time 1142.81s | Train Loss -17.456
+Valid Summary | End of Epoch 36 | Time 188.92s | Valid Loss -15.329
+Test Summary | End of Epoch 36 | Time 110.35s | Test Loss -14.921
+Train Summary | End of Epoch 37 | Time 1142.14s | Train Loss -17.523
+Valid Summary | End of Epoch 37 | Time 189.80s | Valid Loss -15.235
+Test Summary | End of Epoch 37 | Time 112.28s | Test Loss -14.849
+Train Summary | End of Epoch 38 | Time 1143.01s | Train Loss -17.562
+Valid Summary | End of Epoch 38 | Time 188.23s | Valid Loss -15.336
+Test Summary | End of Epoch 38 | Time 111.39s | Test Loss -15.012
+Train Summary | End of Epoch 39 | Time 1143.59s | Train Loss -17.610
+Valid Summary | End of Epoch 39 | Time 192.28s | Valid Loss -15.084
+Test Summary | End of Epoch 39 | Time 111.04s | Test Loss -14.729
+Train Summary | End of Epoch 40 | Time 1142.74s | Train Loss -17.668
+Valid Summary | End of Epoch 40 | Time 185.60s | Valid Loss -15.230
+Test Summary | End of Epoch 40 | Time 109.27s | Test Loss -14.895
+Train Summary | End of Epoch 41 | Time 1134.47s | Train Loss -17.707
+Valid Summary | End of Epoch 41 | Time 183.89s | Valid Loss -15.248
+Test Summary | End of Epoch 41 | Time 107.02s | Test Loss -14.840
+Train Summary | End of Epoch 42 | Time 1135.82s | Train Loss -17.752
+Valid Summary | End of Epoch 42 | Time 182.64s | Valid Loss -15.266
+Test Summary | End of Epoch 42 | Time 108.26s | Test Loss -14.892
+Train Summary | End of Epoch 43 | Time 1136.09s | Train Loss -17.776
+Valid Summary | End of Epoch 43 | Time 185.22s | Valid Loss -15.393
+Test Summary | End of Epoch 43 | Time 107.68s | Test Loss -15.089
+Train Summary | End of Epoch 44 | Time 1137.24s | Train Loss -17.807
+Valid Summary | End of Epoch 44 | Time 183.75s | Valid Loss -15.234
+Test Summary | End of Epoch 44 | Time 107.07s | Test Loss -14.886
+Train Summary | End of Epoch 45 | Time 1136.26s | Train Loss -17.874
+Valid Summary | End of Epoch 45 | Time 185.45s | Valid Loss -15.079
+Test Summary | End of Epoch 45 | Time 106.64s | Test Loss -14.647
+Train Summary | End of Epoch 46 | Time 1137.28s | Train Loss -17.879
+Valid Summary | End of Epoch 46 | Time 184.02s | Valid Loss -15.185
+Test Summary | End of Epoch 46 | Time 106.73s | Test Loss -14.895
+Train Summary | End of Epoch 47 | Time 1139.33s | Train Loss -17.956
+Valid Summary | End of Epoch 47 | Time 184.87s | Valid Loss -15.368
+Test Summary | End of Epoch 47 | Time 108.83s | Test Loss -15.029
+Train Summary | End of Epoch 48 | Time 1139.82s | Train Loss -17.984
+Valid Summary | End of Epoch 48 | Time 183.34s | Valid Loss -15.061
+Test Summary | End of Epoch 48 | Time 106.89s | Test Loss -14.734
+Train Summary | End of Epoch 49 | Time 1140.23s | Train Loss -17.999
+Valid Summary | End of Epoch 49 | Time 184.66s | Valid Loss -15.178
+Test Summary | End of Epoch 49 | Time 107.95s | Test Loss -14.853
+Train Summary | End of Epoch 50 | Time 1147.70s | Train Loss -18.046
+Valid Summary | End of Epoch 50 | Time 188.44s | Valid Loss -15.082
+Test Summary | End of Epoch 50 | Time 109.67s | Test Loss -14.726
+Train Summary | End of Epoch 51 | Time 1140.34s | Train Loss -18.092
+Valid Summary | End of Epoch 51 | Time 182.96s | Valid Loss -15.248
+Test Summary | End of Epoch 51 | Time 107.78s | Test Loss -15.089
+Train Summary | End of Epoch 52 | Time 1139.59s | Train Loss -18.102
+Valid Summary | End of Epoch 52 | Time 189.99s | Valid Loss -15.338
+Test Summary | End of Epoch 52 | Time 110.51s | Test Loss -15.058
+Train Summary | End of Epoch 53 | Time 1157.49s | Train Loss -18.139
+Valid Summary | End of Epoch 53 | Time 188.30s | Valid Loss -15.402
+Test Summary | End of Epoch 53 | Time 111.34s | Test Loss -15.028
+Train Summary | End of Epoch 54 | Time 1171.60s | Train Loss -18.162
+Valid Summary | End of Epoch 54 | Time 191.44s | Valid Loss -15.581
+Test Summary | End of Epoch 54 | Time 130.71s | Test Loss -15.268
+Train Summary | End of Epoch 55 | Time 1157.08s | Train Loss -18.198
+Valid Summary | End of Epoch 55 | Time 188.59s | Valid Loss -15.511
+Test Summary | End of Epoch 55 | Time 110.71s | Test Loss -15.106
+Train Summary | End of Epoch 56 | Time 1154.15s | Train Loss -18.225
+Valid Summary | End of Epoch 56 | Time 191.38s | Valid Loss -15.493
+Test Summary | End of Epoch 56 | Time 110.14s | Test Loss -15.043
+Train Summary | End of Epoch 57 | Time 1153.55s | Train Loss -18.258
+Valid Summary | End of Epoch 57 | Time 189.79s | Valid Loss -15.173
+Test Summary | End of Epoch 57 | Time 112.02s | Test Loss -14.788
+Learning rate adjusted to: 0.000500
+Train Summary | End of Epoch 58 | Time 1148.60s | Train Loss -18.600
+Valid Summary | End of Epoch 58 | Time 189.47s | Valid Loss -15.014
+Test Summary | End of Epoch 58 | Time 110.50s | Test Loss -14.722
+Learning rate adjusted to: 0.000250
+Train Summary | End of Epoch 59 | Time 1148.63s | Train Loss -18.791
+Valid Summary | End of Epoch 59 | Time 189.30s | Valid Loss -15.245
+Test Summary | End of Epoch 59 | Time 109.74s | Test Loss -14.912
+Train Summary | End of Epoch 60 | Time 1150.94s | Train Loss -18.839
+Valid Summary | End of Epoch 60 | Time 188.34s | Valid Loss -15.205
+Test Summary | End of Epoch 60 | Time 110.75s | Test Loss -14.849
+Train Summary | End of Epoch 61 | Time 1152.22s | Train Loss -18.869
+Valid Summary | End of Epoch 61 | Time 188.46s | Valid Loss -15.240
+Test Summary | End of Epoch 61 | Time 109.56s | Test Loss -14.885
+Train Summary | End of Epoch 62 | Time 1151.11s | Train Loss -18.894
+Valid Summary | End of Epoch 62 | Time 189.14s | Valid Loss -15.161
+Test Summary | End of Epoch 62 | Time 109.79s | Test Loss -14.827
+Train Summary | End of Epoch 63 | Time 1152.82s | Train Loss -18.915
+Valid Summary | End of Epoch 63 | Time 189.11s | Valid Loss -15.181
+Test Summary | End of Epoch 63 | Time 110.42s | Test Loss -14.842
+Train Summary | End of Epoch 64 | Time 1149.45s | Train Loss -18.932
+Valid Summary | End of Epoch 64 | Time 192.58s | Valid Loss -15.031
+Test Summary | End of Epoch 64 | Time 110.32s | Test Loss -14.674
+Train Summary | End of Epoch 65 | Time 1138.95s | Train Loss -18.949
+Valid Summary | End of Epoch 65 | Time 188.07s | Valid Loss -15.063
+Test Summary | End of Epoch 65 | Time 110.64s | Test Loss -14.717
+Train Summary | End of Epoch 66 | Time 1136.98s | Train Loss -18.965
+Valid Summary | End of Epoch 66 | Time 187.76s | Valid Loss -15.062
+Test Summary | End of Epoch 66 | Time 110.93s | Test Loss -14.751
+Train Summary | End of Epoch 67 | Time 1137.34s | Train Loss -18.980
+Valid Summary | End of Epoch 67 | Time 189.91s | Valid Loss -15.065
+Test Summary | End of Epoch 67 | Time 112.20s | Test Loss -14.750
+Train Summary | End of Epoch 68 | Time 1137.78s | Train Loss -18.993
+Valid Summary | End of Epoch 68 | Time 187.92s | Valid Loss -14.991
+Test Summary | End of Epoch 68 | Time 111.72s | Test Loss -14.662
+Train Summary | End of Epoch 69 | Time 1135.76s | Train Loss -19.007
+Valid Summary | End of Epoch 69 | Time 192.74s | Valid Loss -14.909
+Test Summary | End of Epoch 69 | Time 110.88s | Test Loss -14.598
+Train Summary | End of Epoch 70 | Time 1137.95s | Train Loss -19.019
+Valid Summary | End of Epoch 70 | Time 188.35s | Valid Loss -15.031
+Test Summary | End of Epoch 70 | Time 113.76s | Test Loss -14.684
+Train Summary | End of Epoch 71 | Time 1138.99s | Train Loss -19.032
+Valid Summary | End of Epoch 71 | Time 187.68s | Valid Loss -14.955
+Test Summary | End of Epoch 71 | Time 110.19s | Test Loss -14.616
+Train Summary | End of Epoch 72 | Time 1137.47s | Train Loss -19.043
+Valid Summary | End of Epoch 72 | Time 190.77s | Valid Loss -14.988
+Test Summary | End of Epoch 72 | Time 111.79s | Test Loss -14.647
+Train Summary | End of Epoch 73 | Time 1137.73s | Train Loss -19.054
+Valid Summary | End of Epoch 73 | Time 189.89s | Valid Loss -14.929
+Test Summary | End of Epoch 73 | Time 110.17s | Test Loss -14.615
+Train Summary | End of Epoch 74 | Time 1134.84s | Train Loss -19.065
+Valid Summary | End of Epoch 74 | Time 189.38s | Valid Loss -14.903
+Test Summary | End of Epoch 74 | Time 109.80s | Test Loss -14.583
+Train Summary | End of Epoch 75 | Time 1137.84s | Train Loss -19.075
+Valid Summary | End of Epoch 75 | Time 189.19s | Valid Loss -14.763
+Test Summary | End of Epoch 75 | Time 111.95s | Test Loss -14.451
+Learning rate adjusted to: 0.000125
+Train Summary | End of Epoch 76 | Time 1136.79s | Train Loss -19.147
+Valid Summary | End of Epoch 76 | Time 191.26s | Valid Loss -14.901
+Test Summary | End of Epoch 76 | Time 108.34s | Test Loss -14.586
+Train Summary | End of Epoch 77 | Time 1136.46s | Train Loss -19.161
+Valid Summary | End of Epoch 77 | Time 190.16s | Valid Loss -14.812
+Test Summary | End of Epoch 77 | Time 110.41s | Test Loss -14.484
+Train Summary | End of Epoch 78 | Time 1137.22s | Train Loss -19.170
+Valid Summary | End of Epoch 78 | Time 193.78s | Valid Loss -14.910
+Test Summary | End of Epoch 78 | Time 111.66s | Test Loss -14.587
+Train Summary | End of Epoch 79 | Time 1135.09s | Train Loss -19.177
+Valid Summary | End of Epoch 79 | Time 188.51s | Valid Loss -14.829
+Test Summary | End of Epoch 79 | Time 110.92s | Test Loss -14.529
+Train Summary | End of Epoch 80 | Time 1133.48s | Train Loss -19.185
+Valid Summary | End of Epoch 80 | Time 189.42s | Valid Loss -14.807
+Test Summary | End of Epoch 80 | Time 110.05s | Test Loss -14.482
+Train Summary | End of Epoch 81 | Time 1134.12s | Train Loss -19.191
+Valid Summary | End of Epoch 81 | Time 191.18s | Valid Loss -14.831
+Test Summary | End of Epoch 81 | Time 111.29s | Test Loss -14.524
+Train Summary | End of Epoch 82 | Time 1135.18s | Train Loss -19.197
+Valid Summary | End of Epoch 82 | Time 188.52s | Valid Loss -14.827
+Test Summary | End of Epoch 82 | Time 110.23s | Test Loss -14.519
+Train Summary | End of Epoch 83 | Time 1134.95s | Train Loss -19.203
+Valid Summary | End of Epoch 83 | Time 189.74s | Valid Loss -14.783
+Test Summary | End of Epoch 83 | Time 111.07s | Test Loss -14.487
+Train Summary | End of Epoch 84 | Time 1134.74s | Train Loss -19.209
+Valid Summary | End of Epoch 84 | Time 189.61s | Valid Loss -14.795
+Test Summary | End of Epoch 84 | Time 112.88s | Test Loss -14.476
+Train Summary | End of Epoch 85 | Time 1132.50s | Train Loss -19.215
+Valid Summary | End of Epoch 85 | Time 189.12s | Valid Loss -14.829
+Test Summary | End of Epoch 85 | Time 112.43s | Test Loss -14.534
+Train Summary | End of Epoch 86 | Time 1133.85s | Train Loss -19.221
+Valid Summary | End of Epoch 86 | Time 192.94s | Valid Loss -14.750
+Test Summary | End of Epoch 86 | Time 113.41s | Test Loss -14.438
+Train Summary | End of Epoch 87 | Time 1134.39s | Train Loss -19.226
+Valid Summary | End of Epoch 87 | Time 189.65s | Valid Loss -14.775
+Test Summary | End of Epoch 87 | Time 112.53s | Test Loss -14.481
+Train Summary | End of Epoch 88 | Time 1135.80s | Train Loss -19.231
+Valid Summary | End of Epoch 88 | Time 191.70s | Valid Loss -14.758
+Test Summary | End of Epoch 88 | Time 110.27s | Test Loss -14.444
+Train Summary | End of Epoch 89 | Time 1132.90s | Train Loss -19.237
+Valid Summary | End of Epoch 89 | Time 182.75s | Valid Loss -14.786
+Test Summary | End of Epoch 89 | Time 110.71s | Test Loss -14.481
+Train Summary | End of Epoch 90 | Time 1122.24s | Train Loss -19.242
+Valid Summary | End of Epoch 90 | Time 183.21s | Valid Loss -14.692
+Test Summary | End of Epoch 90 | Time 106.50s | Test Loss -14.393
+Train Summary | End of Epoch 91 | Time 1122.37s | Train Loss -19.248
+Valid Summary | End of Epoch 91 | Time 183.54s | Valid Loss -14.732
+Test Summary | End of Epoch 91 | Time 110.12s | Test Loss -14.446
+Train Summary | End of Epoch 92 | Time 1123.86s | Train Loss -19.252
+Valid Summary | End of Epoch 92 | Time 183.75s | Valid Loss -14.782
+Test Summary | End of Epoch 92 | Time 107.86s | Test Loss -14.485
+Train Summary | End of Epoch 93 | Time 1122.55s | Train Loss -19.257
+Valid Summary | End of Epoch 93 | Time 183.68s | Valid Loss -14.697
+Test Summary | End of Epoch 93 | Time 108.90s | Test Loss -14.414
+Train Summary | End of Epoch 94 | Time 1130.34s | Train Loss -19.262
+Valid Summary | End of Epoch 94 | Time 184.66s | Valid Loss -14.749
+Test Summary | End of Epoch 94 | Time 106.92s | Test Loss -14.439
+Train Summary | End of Epoch 95 | Time 1136.87s | Train Loss -19.267
+Valid Summary | End of Epoch 95 | Time 186.51s | Valid Loss -14.657
+Test Summary | End of Epoch 95 | Time 107.63s | Test Loss -14.352
+Train Summary | End of Epoch 96 | Time 1137.71s | Train Loss -19.272
+Valid Summary | End of Epoch 96 | Time 181.41s | Valid Loss -14.749
+Test Summary | End of Epoch 96 | Time 106.69s | Test Loss -14.464
+Train Summary | End of Epoch 97 | Time 1136.05s | Train Loss -19.276
+Valid Summary | End of Epoch 97 | Time 184.11s | Valid Loss -14.770
+Test Summary | End of Epoch 97 | Time 107.78s | Test Loss -14.488
+Train Summary | End of Epoch 98 | Time 1135.37s | Train Loss -19.280
+Valid Summary | End of Epoch 98 | Time 183.65s | Valid Loss -14.720
+Test Summary | End of Epoch 98 | Time 106.28s | Test Loss -14.427
+Train Summary | End of Epoch 99 | Time 1137.18s | Train Loss -19.285
+Valid Summary | End of Epoch 99 | Time 181.91s | Valid Loss -14.680
+Test Summary | End of Epoch 99 | Time 108.03s | Test Loss -14.362
+Train Summary | End of Epoch 100 | Time 1136.73s | Train Loss -19.290
+Valid Summary | End of Epoch 100 | Time 181.86s | Valid Loss -14.735
+Test Summary | End of Epoch 100 | Time 106.53s | Test Loss -14.420

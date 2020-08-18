@@ -1,0 +1,628 @@
+started on Dprnn_08-08-2020(17:40:47)
+
+Namespace(B=64, C=2, H=128, K=100, L=20, N=256, R=6, batch_size=8, continue_from='', cv_maxlen=8, distributed=False, epochs=100, keep_batchnorm_fp32=None, local_rank=0, log_name='Dprnn_08-08-2020(17:40:47)', lr=0.001, max_norm=5, num_workers=4, opt_level='O0', patch_torch_functions=None, sample_rate=8000, segment=4, test_dir='/data07/zexu/workspace/speech_separation/data/tt', train_dir='/data07/zexu/workspace/speech_separation/data/tr', use_tensorboard=1, valid_dir='/data07/zexu/workspace/speech_separation/data/cv', world_size=1)
+
+Total number of parameters: 463105 
+
+dpaNet(
+  (encoder): Encoder(
+    (conv1d_U): Conv1d(1, 256, kernel_size=(20,), stride=(10,), bias=False)
+  )
+  (separator): dpa(
+    (layer_norm): GroupNorm(1, 256, eps=1e-08, affine=True)
+    (bottleneck_conv1x1): Conv1d(256, 64, kernel_size=(1,), stride=(1,), bias=False)
+    (dual_dpa): ModuleList(
+      (0): Dual_DPA_Block(
+        (intra_a): cmEncoderLayer(
+          (multihead_ca): multihead_ca(
+            (a_linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+              (2): Linear(in_features=64, out_features=64, bias=True)
+              (3): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (a_att_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (a_linear1): Linear(in_features=64, out_features=128, bias=True)
+          (a_dropout): Dropout(p=0.1, inplace=False)
+          (a_linear2): Linear(in_features=128, out_features=64, bias=True)
+          (a_norm1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_dropout1): Dropout(p=0.1, inplace=False)
+          (a_dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (inter_a): cmEncoderLayer(
+          (multihead_ca): multihead_ca(
+            (a_linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+              (2): Linear(in_features=64, out_features=64, bias=True)
+              (3): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (a_att_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (a_linear1): Linear(in_features=64, out_features=128, bias=True)
+          (a_dropout): Dropout(p=0.1, inplace=False)
+          (a_linear2): Linear(in_features=128, out_features=64, bias=True)
+          (a_norm1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_dropout1): Dropout(p=0.1, inplace=False)
+          (a_dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (intra_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (inter_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+      )
+      (1): Dual_DPA_Block(
+        (intra_a): cmEncoderLayer(
+          (multihead_ca): multihead_ca(
+            (a_linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+              (2): Linear(in_features=64, out_features=64, bias=True)
+              (3): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (a_att_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (a_linear1): Linear(in_features=64, out_features=128, bias=True)
+          (a_dropout): Dropout(p=0.1, inplace=False)
+          (a_linear2): Linear(in_features=128, out_features=64, bias=True)
+          (a_norm1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_dropout1): Dropout(p=0.1, inplace=False)
+          (a_dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (inter_a): cmEncoderLayer(
+          (multihead_ca): multihead_ca(
+            (a_linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+              (2): Linear(in_features=64, out_features=64, bias=True)
+              (3): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (a_att_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (a_linear1): Linear(in_features=64, out_features=128, bias=True)
+          (a_dropout): Dropout(p=0.1, inplace=False)
+          (a_linear2): Linear(in_features=128, out_features=64, bias=True)
+          (a_norm1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_dropout1): Dropout(p=0.1, inplace=False)
+          (a_dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (intra_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (inter_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+      )
+      (2): Dual_DPA_Block(
+        (intra_a): cmEncoderLayer(
+          (multihead_ca): multihead_ca(
+            (a_linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+              (2): Linear(in_features=64, out_features=64, bias=True)
+              (3): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (a_att_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (a_linear1): Linear(in_features=64, out_features=128, bias=True)
+          (a_dropout): Dropout(p=0.1, inplace=False)
+          (a_linear2): Linear(in_features=128, out_features=64, bias=True)
+          (a_norm1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_dropout1): Dropout(p=0.1, inplace=False)
+          (a_dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (inter_a): cmEncoderLayer(
+          (multihead_ca): multihead_ca(
+            (a_linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+              (2): Linear(in_features=64, out_features=64, bias=True)
+              (3): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (a_att_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (a_linear1): Linear(in_features=64, out_features=128, bias=True)
+          (a_dropout): Dropout(p=0.1, inplace=False)
+          (a_linear2): Linear(in_features=128, out_features=64, bias=True)
+          (a_norm1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_dropout1): Dropout(p=0.1, inplace=False)
+          (a_dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (intra_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (inter_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+      )
+      (3): Dual_DPA_Block(
+        (intra_a): cmEncoderLayer(
+          (multihead_ca): multihead_ca(
+            (a_linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+              (2): Linear(in_features=64, out_features=64, bias=True)
+              (3): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (a_att_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (a_linear1): Linear(in_features=64, out_features=128, bias=True)
+          (a_dropout): Dropout(p=0.1, inplace=False)
+          (a_linear2): Linear(in_features=128, out_features=64, bias=True)
+          (a_norm1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_dropout1): Dropout(p=0.1, inplace=False)
+          (a_dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (inter_a): cmEncoderLayer(
+          (multihead_ca): multihead_ca(
+            (a_linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+              (2): Linear(in_features=64, out_features=64, bias=True)
+              (3): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (a_att_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (a_linear1): Linear(in_features=64, out_features=128, bias=True)
+          (a_dropout): Dropout(p=0.1, inplace=False)
+          (a_linear2): Linear(in_features=128, out_features=64, bias=True)
+          (a_norm1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_dropout1): Dropout(p=0.1, inplace=False)
+          (a_dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (intra_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (inter_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+      )
+      (4): Dual_DPA_Block(
+        (intra_a): cmEncoderLayer(
+          (multihead_ca): multihead_ca(
+            (a_linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+              (2): Linear(in_features=64, out_features=64, bias=True)
+              (3): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (a_att_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (a_linear1): Linear(in_features=64, out_features=128, bias=True)
+          (a_dropout): Dropout(p=0.1, inplace=False)
+          (a_linear2): Linear(in_features=128, out_features=64, bias=True)
+          (a_norm1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_dropout1): Dropout(p=0.1, inplace=False)
+          (a_dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (inter_a): cmEncoderLayer(
+          (multihead_ca): multihead_ca(
+            (a_linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+              (2): Linear(in_features=64, out_features=64, bias=True)
+              (3): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (a_att_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (a_linear1): Linear(in_features=64, out_features=128, bias=True)
+          (a_dropout): Dropout(p=0.1, inplace=False)
+          (a_linear2): Linear(in_features=128, out_features=64, bias=True)
+          (a_norm1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_dropout1): Dropout(p=0.1, inplace=False)
+          (a_dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (intra_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (inter_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+      )
+      (5): Dual_DPA_Block(
+        (intra_a): cmEncoderLayer(
+          (multihead_ca): multihead_ca(
+            (a_linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+              (2): Linear(in_features=64, out_features=64, bias=True)
+              (3): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (a_att_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (a_linear1): Linear(in_features=64, out_features=128, bias=True)
+          (a_dropout): Dropout(p=0.1, inplace=False)
+          (a_linear2): Linear(in_features=128, out_features=64, bias=True)
+          (a_norm1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_dropout1): Dropout(p=0.1, inplace=False)
+          (a_dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (inter_a): cmEncoderLayer(
+          (multihead_ca): multihead_ca(
+            (a_linears): ModuleList(
+              (0): Linear(in_features=64, out_features=64, bias=True)
+              (1): Linear(in_features=64, out_features=64, bias=True)
+              (2): Linear(in_features=64, out_features=64, bias=True)
+              (3): Linear(in_features=64, out_features=64, bias=True)
+            )
+            (a_att_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (a_linear1): Linear(in_features=64, out_features=128, bias=True)
+          (a_dropout): Dropout(p=0.1, inplace=False)
+          (a_linear2): Linear(in_features=128, out_features=64, bias=True)
+          (a_norm1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+          (a_dropout1): Dropout(p=0.1, inplace=False)
+          (a_dropout2): Dropout(p=0.1, inplace=False)
+        )
+        (intra_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (inter_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+      )
+    )
+    (prelu): PReLU(num_parameters=1)
+    (mask_conv1x1): Conv1d(64, 512, kernel_size=(1,), stride=(1,), bias=False)
+  )
+  (decoder): Decoder(
+    (basis_signals): Linear(in_features=256, out_features=20, bias=False)
+  )
+)
+Drop 2925 utts(0.26 h) which is short than 32000 samples
+Selected optimization level O0:  Pure FP32 training.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O0
+cast_model_type        : torch.float32
+patch_torch_functions  : False
+keep_batchnorm_fp32    : None
+master_weights         : False
+loss_scale             : 1.0
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O0
+cast_model_type        : torch.float32
+patch_torch_functions  : False
+keep_batchnorm_fp32    : None
+master_weights         : False
+loss_scale             : 1.0
+Warning:  multi_tensor_applier fused unscale kernel is unavailable, possibly because apex was installed without --cuda_ext --cpp_ext. Using Python fallback.  Original ImportError was: ModuleNotFoundError("No module named 'amp_C'",)
+Start new training
+/data07/zexu/workspace/speech_separation/src/dpaNet/dpaNet.py:307: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than tensor.new_tensor(sourceTensor).
+  frame = signal.new_tensor(frame).long()  # signal may in GPU or CPU
+Train Summary | End of Epoch 1 | Time 873.10s | Train Loss -2.415
+Valid Summary | End of Epoch 1 | Time 96.83s | Valid Loss -3.071
+Test Summary | End of Epoch 1 | Time 58.07s | Test Loss -2.656
+Fund new best model, dict saved
+Train Summary | End of Epoch 2 | Time 862.59s | Train Loss -3.177
+Valid Summary | End of Epoch 2 | Time 79.90s | Valid Loss -3.559
+Test Summary | End of Epoch 2 | Time 52.95s | Test Loss -3.077
+Fund new best model, dict saved
+Train Summary | End of Epoch 3 | Time 852.66s | Train Loss -3.526
+Valid Summary | End of Epoch 3 | Time 91.69s | Valid Loss -3.610
+Test Summary | End of Epoch 3 | Time 69.07s | Test Loss -3.346
+Fund new best model, dict saved
+Train Summary | End of Epoch 4 | Time 846.95s | Train Loss -3.706
+Valid Summary | End of Epoch 4 | Time 97.90s | Valid Loss -4.044
+Test Summary | End of Epoch 4 | Time 49.09s | Test Loss -3.834
+Fund new best model, dict saved
+Train Summary | End of Epoch 5 | Time 888.06s | Train Loss -3.858
+Valid Summary | End of Epoch 5 | Time 80.27s | Valid Loss -4.069
+Test Summary | End of Epoch 5 | Time 50.89s | Test Loss -3.841
+Fund new best model, dict saved
+Train Summary | End of Epoch 6 | Time 855.40s | Train Loss -3.921
+Valid Summary | End of Epoch 6 | Time 80.74s | Valid Loss -4.043
+Test Summary | End of Epoch 6 | Time 46.12s | Test Loss -3.696
+Train Summary | End of Epoch 7 | Time 873.20s | Train Loss -4.017
+Valid Summary | End of Epoch 7 | Time 81.67s | Valid Loss -4.252
+Test Summary | End of Epoch 7 | Time 47.85s | Test Loss -4.013
+Fund new best model, dict saved
+Train Summary | End of Epoch 8 | Time 857.01s | Train Loss -4.133
+Valid Summary | End of Epoch 8 | Time 82.08s | Valid Loss -4.307
+Test Summary | End of Epoch 8 | Time 64.57s | Test Loss -4.075
+Fund new best model, dict saved
+Train Summary | End of Epoch 9 | Time 863.56s | Train Loss -4.210
+Valid Summary | End of Epoch 9 | Time 80.49s | Valid Loss -4.455
+Test Summary | End of Epoch 9 | Time 46.63s | Test Loss -4.200
+Fund new best model, dict saved
+Train Summary | End of Epoch 10 | Time 871.53s | Train Loss -4.290
+Valid Summary | End of Epoch 10 | Time 81.66s | Valid Loss -4.457
+Test Summary | End of Epoch 10 | Time 47.12s | Test Loss -4.217
+Fund new best model, dict saved
+Train Summary | End of Epoch 11 | Time 857.54s | Train Loss -4.368
+Valid Summary | End of Epoch 11 | Time 80.71s | Valid Loss -4.388
+Test Summary | End of Epoch 11 | Time 47.87s | Test Loss -4.091
+Train Summary | End of Epoch 12 | Time 864.60s | Train Loss -4.412
+Valid Summary | End of Epoch 12 | Time 80.19s | Valid Loss -4.649
+Test Summary | End of Epoch 12 | Time 46.70s | Test Loss -4.490
+Fund new best model, dict saved
+Train Summary | End of Epoch 13 | Time 857.71s | Train Loss -4.482
+Valid Summary | End of Epoch 13 | Time 80.58s | Valid Loss -4.697
+Test Summary | End of Epoch 13 | Time 62.85s | Test Loss -4.501
+Fund new best model, dict saved
+Train Summary | End of Epoch 14 | Time 859.66s | Train Loss -4.530
+Valid Summary | End of Epoch 14 | Time 78.48s | Valid Loss -4.748
+Test Summary | End of Epoch 14 | Time 48.56s | Test Loss -4.573
+Fund new best model, dict saved
+Train Summary | End of Epoch 15 | Time 872.81s | Train Loss -4.559
+Valid Summary | End of Epoch 15 | Time 88.16s | Valid Loss -4.743
+Test Summary | End of Epoch 15 | Time 48.13s | Test Loss -4.498
+Train Summary | End of Epoch 16 | Time 872.82s | Train Loss -4.605
+Valid Summary | End of Epoch 16 | Time 82.62s | Valid Loss -4.841
+Test Summary | End of Epoch 16 | Time 49.27s | Test Loss -4.643
+Fund new best model, dict saved
+Train Summary | End of Epoch 17 | Time 870.70s | Train Loss -4.638
+Valid Summary | End of Epoch 17 | Time 84.23s | Valid Loss -4.886
+Test Summary | End of Epoch 17 | Time 48.48s | Test Loss -4.635
+Fund new best model, dict saved
+Train Summary | End of Epoch 18 | Time 873.57s | Train Loss -4.666
+Valid Summary | End of Epoch 18 | Time 90.51s | Valid Loss -4.784
+Test Summary | End of Epoch 18 | Time 65.12s | Test Loss -4.623
+Train Summary | End of Epoch 19 | Time 851.43s | Train Loss -4.734
+Valid Summary | End of Epoch 19 | Time 94.53s | Valid Loss -4.964
+Test Summary | End of Epoch 19 | Time 53.74s | Test Loss -4.707
+Fund new best model, dict saved
+Train Summary | End of Epoch 20 | Time 868.30s | Train Loss -4.762
+Valid Summary | End of Epoch 20 | Time 108.09s | Valid Loss -4.930
+Test Summary | End of Epoch 20 | Time 50.30s | Test Loss -4.725
+Train Summary | End of Epoch 21 | Time 868.69s | Train Loss -4.787
+Valid Summary | End of Epoch 21 | Time 82.71s | Valid Loss -4.994
+Test Summary | End of Epoch 21 | Time 48.35s | Test Loss -4.778
+Fund new best model, dict saved
+Train Summary | End of Epoch 22 | Time 874.68s | Train Loss -4.820
+Valid Summary | End of Epoch 22 | Time 84.29s | Valid Loss -4.968
+Test Summary | End of Epoch 22 | Time 50.34s | Test Loss -4.705
+Train Summary | End of Epoch 23 | Time 876.89s | Train Loss -4.815
+Valid Summary | End of Epoch 23 | Time 106.68s | Valid Loss -4.999
+Test Summary | End of Epoch 23 | Time 47.78s | Test Loss -4.705
+Fund new best model, dict saved
+Train Summary | End of Epoch 24 | Time 883.93s | Train Loss -4.841
+Valid Summary | End of Epoch 24 | Time 85.88s | Valid Loss -5.028
+Test Summary | End of Epoch 24 | Time 51.83s | Test Loss -4.762
+Fund new best model, dict saved
+Train Summary | End of Epoch 25 | Time 878.28s | Train Loss -4.874
+Valid Summary | End of Epoch 25 | Time 82.93s | Valid Loss -5.050
+Test Summary | End of Epoch 25 | Time 48.88s | Test Loss -4.709
+Fund new best model, dict saved
+Train Summary | End of Epoch 26 | Time 866.79s | Train Loss -4.901
+Valid Summary | End of Epoch 26 | Time 84.89s | Valid Loss -5.136
+Test Summary | End of Epoch 26 | Time 47.35s | Test Loss -4.859
+Fund new best model, dict saved
+Train Summary | End of Epoch 27 | Time 874.73s | Train Loss -4.944
+Valid Summary | End of Epoch 27 | Time 84.97s | Valid Loss -5.224
+Test Summary | End of Epoch 27 | Time 48.55s | Test Loss -4.958
+Fund new best model, dict saved
+Train Summary | End of Epoch 28 | Time 867.84s | Train Loss -4.967
+Valid Summary | End of Epoch 28 | Time 98.83s | Valid Loss -5.134
+Test Summary | End of Epoch 28 | Time 49.18s | Test Loss -4.946
+Train Summary | End of Epoch 29 | Time 865.98s | Train Loss -4.979
+Valid Summary | End of Epoch 29 | Time 83.35s | Valid Loss -5.219
+Test Summary | End of Epoch 29 | Time 49.30s | Test Loss -5.005
+Train Summary | End of Epoch 30 | Time 883.09s | Train Loss -5.031
+Valid Summary | End of Epoch 30 | Time 83.34s | Valid Loss -5.196
+Test Summary | End of Epoch 30 | Time 49.26s | Test Loss -4.985
+Train Summary | End of Epoch 31 | Time 864.30s | Train Loss -5.055
+Valid Summary | End of Epoch 31 | Time 82.13s | Valid Loss -5.253
+Test Summary | End of Epoch 31 | Time 48.97s | Test Loss -4.994
+Fund new best model, dict saved
+Train Summary | End of Epoch 32 | Time 871.01s | Train Loss -5.099
+Valid Summary | End of Epoch 32 | Time 84.69s | Valid Loss -5.319
+Test Summary | End of Epoch 32 | Time 47.51s | Test Loss -5.016
+Fund new best model, dict saved
+Train Summary | End of Epoch 33 | Time 857.20s | Train Loss -5.097
+Valid Summary | End of Epoch 33 | Time 81.90s | Valid Loss -5.266
+Test Summary | End of Epoch 33 | Time 47.98s | Test Loss -5.040
+Train Summary | End of Epoch 34 | Time 869.21s | Train Loss -5.110
+Valid Summary | End of Epoch 34 | Time 85.21s | Valid Loss -5.234
+Test Summary | End of Epoch 34 | Time 49.69s | Test Loss -5.053
+Train Summary | End of Epoch 35 | Time 867.32s | Train Loss -5.134
+Valid Summary | End of Epoch 35 | Time 102.54s | Valid Loss -5.332
+Test Summary | End of Epoch 35 | Time 51.83s | Test Loss -5.047
+Fund new best model, dict saved
+Train Summary | End of Epoch 36 | Time 859.92s | Train Loss -5.161
+Valid Summary | End of Epoch 36 | Time 83.14s | Valid Loss -5.350
+Test Summary | End of Epoch 36 | Time 48.49s | Test Loss -5.077
+Fund new best model, dict saved
+Train Summary | End of Epoch 37 | Time 874.10s | Train Loss -5.164
+Valid Summary | End of Epoch 37 | Time 88.15s | Valid Loss -5.404
+Test Summary | End of Epoch 37 | Time 49.17s | Test Loss -5.094
+Fund new best model, dict saved
+Train Summary | End of Epoch 38 | Time 857.89s | Train Loss -5.171
+Valid Summary | End of Epoch 38 | Time 83.60s | Valid Loss -5.356
+Test Summary | End of Epoch 38 | Time 47.74s | Test Loss -4.966
+Train Summary | End of Epoch 39 | Time 869.36s | Train Loss -5.175
+Valid Summary | End of Epoch 39 | Time 85.06s | Valid Loss -5.322
+Test Summary | End of Epoch 39 | Time 48.77s | Test Loss -5.053
+Train Summary | End of Epoch 40 | Time 860.36s | Train Loss -5.125
+Valid Summary | End of Epoch 40 | Time 83.90s | Valid Loss -5.367
+Test Summary | End of Epoch 40 | Time 63.12s | Test Loss -5.074
+Train Summary | End of Epoch 41 | Time 856.35s | Train Loss -5.181
+Valid Summary | End of Epoch 41 | Time 84.51s | Valid Loss -5.390
+Test Summary | End of Epoch 41 | Time 48.17s | Test Loss -5.080
+Train Summary | End of Epoch 42 | Time 858.65s | Train Loss -5.200
+Valid Summary | End of Epoch 42 | Time 100.32s | Valid Loss -5.310
+Test Summary | End of Epoch 42 | Time 64.31s | Test Loss -5.043
+Train Summary | End of Epoch 43 | Time 845.60s | Train Loss -5.214
+Valid Summary | End of Epoch 43 | Time 95.92s | Valid Loss -5.419
+Test Summary | End of Epoch 43 | Time 54.44s | Test Loss -5.033
+Fund new best model, dict saved
+Train Summary | End of Epoch 44 | Time 853.65s | Train Loss -5.235
+Valid Summary | End of Epoch 44 | Time 100.15s | Valid Loss -5.463
+Test Summary | End of Epoch 44 | Time 48.61s | Test Loss -5.242
+Fund new best model, dict saved
+Train Summary | End of Epoch 45 | Time 843.29s | Train Loss -5.246
+Valid Summary | End of Epoch 45 | Time 100.43s | Valid Loss -5.451
+Test Summary | End of Epoch 45 | Time 47.41s | Test Loss -5.216
+Train Summary | End of Epoch 46 | Time 861.91s | Train Loss -5.270
+Valid Summary | End of Epoch 46 | Time 83.62s | Valid Loss -5.480
+Test Summary | End of Epoch 46 | Time 47.42s | Test Loss -5.153
+Fund new best model, dict saved
+Train Summary | End of Epoch 47 | Time 853.75s | Train Loss -5.302
+Valid Summary | End of Epoch 47 | Time 83.20s | Valid Loss -5.433
+Test Summary | End of Epoch 47 | Time 63.99s | Test Loss -5.129
+Train Summary | End of Epoch 48 | Time 855.71s | Train Loss -5.297
+Valid Summary | End of Epoch 48 | Time 84.78s | Valid Loss -5.452
+Test Summary | End of Epoch 48 | Time 49.07s | Test Loss -5.134
+Train Summary | End of Epoch 49 | Time 850.75s | Train Loss -5.332
+Valid Summary | End of Epoch 49 | Time 101.11s | Valid Loss -5.527
+Test Summary | End of Epoch 49 | Time 52.56s | Test Loss -5.172
+Fund new best model, dict saved
+Train Summary | End of Epoch 50 | Time 848.64s | Train Loss -5.309
+Valid Summary | End of Epoch 50 | Time 85.77s | Valid Loss -5.472
+Test Summary | End of Epoch 50 | Time 47.16s | Test Loss -5.180
+Train Summary | End of Epoch 51 | Time 853.46s | Train Loss -5.313
+Valid Summary | End of Epoch 51 | Time 81.51s | Valid Loss -5.520
+Test Summary | End of Epoch 51 | Time 48.25s | Test Loss -5.257
+Train Summary | End of Epoch 52 | Time 844.27s | Train Loss -5.325
+Valid Summary | End of Epoch 52 | Time 81.60s | Valid Loss -5.452
+Test Summary | End of Epoch 52 | Time 48.41s | Test Loss -5.065
+Train Summary | End of Epoch 53 | Time 852.25s | Train Loss -5.296
+Valid Summary | End of Epoch 53 | Time 81.20s | Valid Loss -5.434
+Test Summary | End of Epoch 53 | Time 48.91s | Test Loss -5.088
+Train Summary | End of Epoch 54 | Time 845.45s | Train Loss -5.310
+Valid Summary | End of Epoch 54 | Time 81.03s | Valid Loss -5.493
+Test Summary | End of Epoch 54 | Time 48.72s | Test Loss -5.204
+Train Summary | End of Epoch 55 | Time 849.86s | Train Loss -5.321
+Valid Summary | End of Epoch 55 | Time 83.24s | Valid Loss -5.535
+Test Summary | End of Epoch 55 | Time 50.90s | Test Loss -5.184
+Fund new best model, dict saved
+Train Summary | End of Epoch 56 | Time 845.51s | Train Loss -5.347
+Valid Summary | End of Epoch 56 | Time 81.59s | Valid Loss -5.520
+Test Summary | End of Epoch 56 | Time 64.42s | Test Loss -5.209
+Train Summary | End of Epoch 57 | Time 844.03s | Train Loss -5.341
+Valid Summary | End of Epoch 57 | Time 81.65s | Valid Loss -5.477
+Test Summary | End of Epoch 57 | Time 48.44s | Test Loss -5.223
+Train Summary | End of Epoch 58 | Time 848.70s | Train Loss -5.360
+Valid Summary | End of Epoch 58 | Time 102.95s | Valid Loss -5.495
+Test Summary | End of Epoch 58 | Time 48.41s | Test Loss -5.190
+Train Summary | End of Epoch 59 | Time 848.87s | Train Loss -5.344
+Valid Summary | End of Epoch 59 | Time 82.78s | Valid Loss -5.579
+Test Summary | End of Epoch 59 | Time 48.62s | Test Loss -5.212
+Fund new best model, dict saved
+Train Summary | End of Epoch 60 | Time 854.13s | Train Loss -5.357
+Valid Summary | End of Epoch 60 | Time 81.91s | Valid Loss -5.515
+Test Summary | End of Epoch 60 | Time 50.31s | Test Loss -5.242
+Train Summary | End of Epoch 61 | Time 847.88s | Train Loss -5.303
+Valid Summary | End of Epoch 61 | Time 82.66s | Valid Loss -5.516
+Test Summary | End of Epoch 61 | Time 50.26s | Test Loss -5.106
+Train Summary | End of Epoch 62 | Time 857.71s | Train Loss -5.351
+Valid Summary | End of Epoch 62 | Time 83.11s | Valid Loss -5.479
+Test Summary | End of Epoch 62 | Time 47.44s | Test Loss -5.184
+Train Summary | End of Epoch 63 | Time 846.91s | Train Loss -5.359
+Valid Summary | End of Epoch 63 | Time 82.28s | Valid Loss -5.514
+Test Summary | End of Epoch 63 | Time 51.66s | Test Loss -5.234
+Train Summary | End of Epoch 64 | Time 852.95s | Train Loss -5.390
+Valid Summary | End of Epoch 64 | Time 83.66s | Valid Loss -5.593
+Test Summary | End of Epoch 64 | Time 48.13s | Test Loss -5.282
+Fund new best model, dict saved
+Train Summary | End of Epoch 65 | Time 853.06s | Train Loss -5.398
+Valid Summary | End of Epoch 65 | Time 83.89s | Valid Loss -5.546
+Test Summary | End of Epoch 65 | Time 58.49s | Test Loss -5.169
+Train Summary | End of Epoch 66 | Time 851.50s | Train Loss -5.382
+Valid Summary | End of Epoch 66 | Time 88.05s | Valid Loss -5.567
+Test Summary | End of Epoch 66 | Time 50.35s | Test Loss -5.215
+Train Summary | End of Epoch 67 | Time 865.57s | Train Loss -5.392
+Valid Summary | End of Epoch 67 | Time 103.28s | Valid Loss -5.570
+Test Summary | End of Epoch 67 | Time 48.74s | Test Loss -5.332
+Train Summary | End of Epoch 68 | Time 857.63s | Train Loss -5.422
+Valid Summary | End of Epoch 68 | Time 84.11s | Valid Loss -5.592
+Test Summary | End of Epoch 68 | Time 49.66s | Test Loss -5.335
+Train Summary | End of Epoch 69 | Time 862.07s | Train Loss -5.402
+Valid Summary | End of Epoch 69 | Time 82.14s | Valid Loss -5.623
+Test Summary | End of Epoch 69 | Time 48.80s | Test Loss -5.337
+Fund new best model, dict saved
+Train Summary | End of Epoch 70 | Time 852.81s | Train Loss -5.410
+Valid Summary | End of Epoch 70 | Time 81.94s | Valid Loss -5.478
+Test Summary | End of Epoch 70 | Time 48.52s | Test Loss -5.326
+Train Summary | End of Epoch 71 | Time 858.18s | Train Loss -5.416
+Valid Summary | End of Epoch 71 | Time 81.52s | Valid Loss -5.539
+Test Summary | End of Epoch 71 | Time 47.38s | Test Loss -5.216
+Train Summary | End of Epoch 72 | Time 853.00s | Train Loss -5.399
+Valid Summary | End of Epoch 72 | Time 82.09s | Valid Loss -5.549
+Test Summary | End of Epoch 72 | Time 48.22s | Test Loss -5.265
+Train Summary | End of Epoch 73 | Time 856.09s | Train Loss -5.401
+Valid Summary | End of Epoch 73 | Time 81.06s | Valid Loss -5.576
+Test Summary | End of Epoch 73 | Time 47.69s | Test Loss -5.299
+Train Summary | End of Epoch 74 | Time 852.01s | Train Loss -5.444
+Valid Summary | End of Epoch 74 | Time 96.00s | Valid Loss -5.631
+Test Summary | End of Epoch 74 | Time 58.24s | Test Loss -5.383
+Fund new best model, dict saved
+Train Summary | End of Epoch 75 | Time 855.39s | Train Loss -5.459
+Valid Summary | End of Epoch 75 | Time 81.90s | Valid Loss -5.625
+Test Summary | End of Epoch 75 | Time 47.18s | Test Loss -5.354
+Train Summary | End of Epoch 76 | Time 871.87s | Train Loss -5.467
+Valid Summary | End of Epoch 76 | Time 89.46s | Valid Loss -5.647
+Test Summary | End of Epoch 76 | Time 62.41s | Test Loss -5.398
+Fund new best model, dict saved
+Train Summary | End of Epoch 77 | Time 858.23s | Train Loss -5.477
+Valid Summary | End of Epoch 77 | Time 96.67s | Valid Loss -5.673
+Test Summary | End of Epoch 77 | Time 73.46s | Test Loss -5.378
+Fund new best model, dict saved
+Train Summary | End of Epoch 78 | Time 905.69s | Train Loss -5.492
+Valid Summary | End of Epoch 78 | Time 131.01s | Valid Loss -5.599
+Test Summary | End of Epoch 78 | Time 58.36s | Test Loss -5.369
+Train Summary | End of Epoch 79 | Time 853.53s | Train Loss -5.507
+Valid Summary | End of Epoch 79 | Time 98.20s | Valid Loss -5.698
+Test Summary | End of Epoch 79 | Time 47.36s | Test Loss -5.453
+Fund new best model, dict saved
+Train Summary | End of Epoch 80 | Time 852.95s | Train Loss -5.511
+Valid Summary | End of Epoch 80 | Time 97.53s | Valid Loss -5.722
+Test Summary | End of Epoch 80 | Time 47.35s | Test Loss -5.420
+Fund new best model, dict saved
+Train Summary | End of Epoch 81 | Time 865.55s | Train Loss -5.510
+Valid Summary | End of Epoch 81 | Time 97.37s | Valid Loss -5.748
+Test Summary | End of Epoch 81 | Time 47.20s | Test Loss -5.430
+Fund new best model, dict saved
+Train Summary | End of Epoch 82 | Time 853.35s | Train Loss -5.504
+Valid Summary | End of Epoch 82 | Time 81.29s | Valid Loss -5.593
+Test Summary | End of Epoch 82 | Time 47.26s | Test Loss -5.411
+Train Summary | End of Epoch 83 | Time 856.14s | Train Loss -5.465
+Valid Summary | End of Epoch 83 | Time 88.00s | Valid Loss -5.673
+Test Summary | End of Epoch 83 | Time 47.66s | Test Loss -5.441
+Train Summary | End of Epoch 84 | Time 852.77s | Train Loss -5.523
+Valid Summary | End of Epoch 84 | Time 81.36s | Valid Loss -5.697
+Test Summary | End of Epoch 84 | Time 48.91s | Test Loss -5.497
+Train Summary | End of Epoch 85 | Time 861.31s | Train Loss -5.530
+Valid Summary | End of Epoch 85 | Time 81.32s | Valid Loss -5.780
+Test Summary | End of Epoch 85 | Time 47.52s | Test Loss -5.526
+Fund new best model, dict saved
+Train Summary | End of Epoch 86 | Time 854.36s | Train Loss -5.533
+Valid Summary | End of Epoch 86 | Time 82.62s | Valid Loss -5.708
+Test Summary | End of Epoch 86 | Time 47.42s | Test Loss -5.482
+Train Summary | End of Epoch 87 | Time 861.99s | Train Loss -5.510
+Valid Summary | End of Epoch 87 | Time 81.94s | Valid Loss -5.780
+Test Summary | End of Epoch 87 | Time 51.13s | Test Loss -5.510
+Train Summary | End of Epoch 88 | Time 856.10s | Train Loss -5.552
+Valid Summary | End of Epoch 88 | Time 81.89s | Valid Loss -5.710
+Test Summary | End of Epoch 88 | Time 47.65s | Test Loss -5.342
+Train Summary | End of Epoch 89 | Time 865.50s | Train Loss -5.538
+Valid Summary | End of Epoch 89 | Time 82.58s | Valid Loss -5.761
+Test Summary | End of Epoch 89 | Time 47.55s | Test Loss -5.462
+Train Summary | End of Epoch 90 | Time 852.92s | Train Loss -5.557
+Valid Summary | End of Epoch 90 | Time 98.59s | Valid Loss -5.715
+Test Summary | End of Epoch 90 | Time 47.22s | Test Loss -5.424
+Train Summary | End of Epoch 91 | Time 881.29s | Train Loss -5.553
+Valid Summary | End of Epoch 91 | Time 83.07s | Valid Loss -5.751
+Test Summary | End of Epoch 91 | Time 49.03s | Test Loss -5.487
+Train Summary | End of Epoch 92 | Time 880.26s | Train Loss -5.561
+Valid Summary | End of Epoch 92 | Time 82.93s | Valid Loss -5.721
+Test Summary | End of Epoch 92 | Time 50.12s | Test Loss -5.459
+Train Summary | End of Epoch 93 | Time 858.50s | Train Loss -5.537
+Valid Summary | End of Epoch 93 | Time 81.81s | Valid Loss -5.724
+Test Summary | End of Epoch 93 | Time 48.03s | Test Loss -5.357
+Train Summary | End of Epoch 94 | Time 864.94s | Train Loss -5.581
+Valid Summary | End of Epoch 94 | Time 82.52s | Valid Loss -5.755
+Test Summary | End of Epoch 94 | Time 48.39s | Test Loss -5.526
+Train Summary | End of Epoch 95 | Time 855.75s | Train Loss -5.586
+Valid Summary | End of Epoch 95 | Time 81.21s | Valid Loss -5.694
+Test Summary | End of Epoch 95 | Time 59.97s | Test Loss -5.310
+Train Summary | End of Epoch 96 | Time 857.66s | Train Loss -5.592
+Valid Summary | End of Epoch 96 | Time 81.47s | Valid Loss -5.728
+Test Summary | End of Epoch 96 | Time 49.62s | Test Loss -5.444
+Train Summary | End of Epoch 97 | Time 862.61s | Train Loss -5.584
+Valid Summary | End of Epoch 97 | Time 99.56s | Valid Loss -5.698
+Test Summary | End of Epoch 97 | Time 51.06s | Test Loss -5.263
+Train Summary | End of Epoch 98 | Time 862.68s | Train Loss -5.569
+Valid Summary | End of Epoch 98 | Time 82.68s | Valid Loss -5.765
+Test Summary | End of Epoch 98 | Time 47.49s | Test Loss -5.472
+Train Summary | End of Epoch 99 | Time 866.80s | Train Loss -5.604
+Valid Summary | End of Epoch 99 | Time 83.03s | Valid Loss -5.805
+Test Summary | End of Epoch 99 | Time 48.17s | Test Loss -5.537
+Fund new best model, dict saved
+Train Summary | End of Epoch 100 | Time 870.34s | Train Loss -5.613
+Valid Summary | End of Epoch 100 | Time 84.08s | Valid Loss -5.797
+Test Summary | End of Epoch 100 | Time 50.02s | Test Loss -5.471

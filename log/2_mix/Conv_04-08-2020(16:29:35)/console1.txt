@@ -1,0 +1,874 @@
+started on Conv_04-08-2020(16:29:35)
+
+Namespace(B=256, C=2, H=512, L=20, N=256, P=3, R=4, X=8, batch_size=3, continue_from='Conv_04-08-2020(16:29:35)', cv_maxlen=8, distributed=False, epochs=100, keep_batchnorm_fp32=None, local_rank=0, log_name='Conv_04-08-2020(16:29:35)', lr=0.001, max_norm=5, num_workers=4, opt_level='O0', patch_torch_functions=None, sample_rate=8000, segment=4, test_dir='/data07/zexu/workspace/speech_separation/data/tt', train_dir='/data07/zexu/workspace/speech_separation/data/tr', use_tensorboard=1, valid_dir='/data07/zexu/workspace/speech_separation/data/cv', world_size=1)
+
+Total number of parameters: 8710720 
+
+ConvTasNet(
+  (encoder): Encoder(
+    (conv1d_U): Conv1d(1, 256, kernel_size=(20,), stride=(10,), bias=False)
+  )
+  (separator): TemporalConvNet(
+    (network): Sequential(
+      (0): ChannelWiseLayerNorm((256,), eps=1e-05, elementwise_affine=True)
+      (1): Conv1d(256, 256, kernel_size=(1,), stride=(1,), bias=False)
+      (2): Sequential(
+        (0): Sequential(
+          (0): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(1,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (1): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (2): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(4,), dilation=(4,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (3): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(8,), dilation=(8,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (4): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(16,), dilation=(16,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (5): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(32,), dilation=(32,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (6): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(64,), dilation=(64,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (7): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(128,), dilation=(128,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+        )
+        (1): Sequential(
+          (0): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(1,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (1): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (2): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(4,), dilation=(4,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (3): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(8,), dilation=(8,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (4): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(16,), dilation=(16,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (5): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(32,), dilation=(32,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (6): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(64,), dilation=(64,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (7): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(128,), dilation=(128,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+        )
+        (2): Sequential(
+          (0): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(1,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (1): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (2): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(4,), dilation=(4,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (3): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(8,), dilation=(8,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (4): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(16,), dilation=(16,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (5): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(32,), dilation=(32,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (6): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(64,), dilation=(64,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (7): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(128,), dilation=(128,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+        )
+        (3): Sequential(
+          (0): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(1,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (1): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(2,), dilation=(2,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (2): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(4,), dilation=(4,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (3): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(8,), dilation=(8,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (4): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(16,), dilation=(16,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (5): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(32,), dilation=(32,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (6): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(64,), dilation=(64,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+          (7): TemporalBlock(
+            (net): Sequential(
+              (0): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+              (1): PReLU(num_parameters=1)
+              (2): GlobalLayerNorm()
+              (3): DepthwiseSeparableConv(
+                (net): Sequential(
+                  (0): Conv1d(512, 512, kernel_size=(3,), stride=(1,), padding=(128,), dilation=(128,), groups=512, bias=False)
+                  (1): PReLU(num_parameters=1)
+                  (2): GlobalLayerNorm()
+                  (3): Conv1d(512, 256, kernel_size=(1,), stride=(1,), bias=False)
+                )
+              )
+            )
+          )
+        )
+      )
+      (3): Conv1d(256, 512, kernel_size=(1,), stride=(1,), bias=False)
+    )
+  )
+  (decoder): Decoder(
+    (basis_signals): Linear(in_features=256, out_features=20, bias=False)
+  )
+)
+Drop 2925 utts(0.26 h) which is short than 32000 samples
+Selected optimization level O0:  Pure FP32 training.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O0
+cast_model_type        : torch.float32
+patch_torch_functions  : False
+keep_batchnorm_fp32    : None
+master_weights         : False
+loss_scale             : 1.0
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O0
+cast_model_type        : torch.float32
+patch_torch_functions  : False
+keep_batchnorm_fp32    : None
+master_weights         : False
+loss_scale             : 1.0
+Warning:  multi_tensor_applier fused unscale kernel is unavailable, possibly because apex was installed without --cuda_ext --cpp_ext. Using Python fallback.  Original ImportError was: ModuleNotFoundError("No module named 'amp_C'",)
+Resume training from epoch: 3
+/data07/zexu/workspace/speech_separation/src/baseline/convTasnet/ConvTasnet.py:282: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than tensor.new_tensor(sourceTensor).
+  frame = signal.new_tensor(frame).long()  # signal may in GPU or CPU
+Train Summary | End of Epoch 3 | Time 7324.18s | Train Loss -11.540
+Valid Summary | End of Epoch 3 | Time 2207.11s | Valid Loss -11.941
+Test Summary | End of Epoch 3 | Time 1902.70s | Test Loss -11.480
+Fund new best model, dict saved
+Train Summary | End of Epoch 4 | Time 7298.70s | Train Loss -12.254
+Valid Summary | End of Epoch 4 | Time 1821.26s | Valid Loss -12.534
+Test Summary | End of Epoch 4 | Time 1291.54s | Test Loss -11.985
+Fund new best model, dict saved
+Train Summary | End of Epoch 5 | Time 8586.25s | Train Loss -12.777
+Valid Summary | End of Epoch 5 | Time 1601.10s | Valid Loss -12.975
+Test Summary | End of Epoch 5 | Time 758.38s | Test Loss -12.425
+Fund new best model, dict saved
+Train Summary | End of Epoch 6 | Time 5326.56s | Train Loss -13.187
+Valid Summary | End of Epoch 6 | Time 1389.33s | Valid Loss -13.196
+Test Summary | End of Epoch 6 | Time 783.24s | Test Loss -12.642
+Fund new best model, dict saved
+Train Summary | End of Epoch 7 | Time 7939.24s | Train Loss -13.559
+Valid Summary | End of Epoch 7 | Time 2326.81s | Valid Loss -13.414
+Test Summary | End of Epoch 7 | Time 728.64s | Test Loss -12.629
+Fund new best model, dict saved
+Train Summary | End of Epoch 8 | Time 4222.69s | Train Loss -13.867
+Valid Summary | End of Epoch 8 | Time 297.55s | Valid Loss -13.621
+Test Summary | End of Epoch 8 | Time 126.17s | Test Loss -12.766
+Fund new best model, dict saved
+Train Summary | End of Epoch 9 | Time 4403.56s | Train Loss -14.131
+Valid Summary | End of Epoch 9 | Time 597.14s | Valid Loss -13.911
+Test Summary | End of Epoch 9 | Time 151.60s | Test Loss -13.200
+Fund new best model, dict saved
+Train Summary | End of Epoch 10 | Time 3660.06s | Train Loss -14.381
+Valid Summary | End of Epoch 10 | Time 264.04s | Valid Loss -13.984
+Test Summary | End of Epoch 10 | Time 96.68s | Test Loss -13.225
+Fund new best model, dict saved
+Train Summary | End of Epoch 11 | Time 7612.90s | Train Loss -14.578
+Valid Summary | End of Epoch 11 | Time 2488.43s | Valid Loss -14.166
+Test Summary | End of Epoch 11 | Time 1110.50s | Test Loss -13.419
+Fund new best model, dict saved
+Train Summary | End of Epoch 12 | Time 10841.82s | Train Loss -14.788
+Valid Summary | End of Epoch 12 | Time 3497.12s | Valid Loss -14.381
+Test Summary | End of Epoch 12 | Time 1210.49s | Test Loss -13.504
+Fund new best model, dict saved
+Train Summary | End of Epoch 13 | Time 7741.85s | Train Loss -14.941
+Valid Summary | End of Epoch 13 | Time 1914.01s | Valid Loss -14.434
+Test Summary | End of Epoch 13 | Time 1424.55s | Test Loss -13.567
+Fund new best model, dict saved
+Train Summary | End of Epoch 14 | Time 8620.35s | Train Loss -15.121
+Valid Summary | End of Epoch 14 | Time 2073.55s | Valid Loss -14.727
+Test Summary | End of Epoch 14 | Time 1145.65s | Test Loss -13.910
+Fund new best model, dict saved
+Train Summary | End of Epoch 15 | Time 7968.81s | Train Loss -15.265
+Valid Summary | End of Epoch 15 | Time 1578.66s | Valid Loss -14.674
+Test Summary | End of Epoch 15 | Time 969.90s | Test Loss -13.550
+Train Summary | End of Epoch 16 | Time 9382.03s | Train Loss -15.396
+Valid Summary | End of Epoch 16 | Time 2554.47s | Valid Loss -14.766
+Test Summary | End of Epoch 16 | Time 1246.37s | Test Loss -13.682
+Fund new best model, dict saved
+Train Summary | End of Epoch 17 | Time 8387.45s | Train Loss -15.544
+Valid Summary | End of Epoch 17 | Time 2201.23s | Valid Loss -14.830
+Test Summary | End of Epoch 17 | Time 1497.09s | Test Loss -13.597
+Fund new best model, dict saved
+Train Summary | End of Epoch 18 | Time 7040.67s | Train Loss -15.650
+Valid Summary | End of Epoch 18 | Time 507.26s | Valid Loss -14.891
+Test Summary | End of Epoch 18 | Time 543.48s | Test Loss -14.091
+Fund new best model, dict saved
+Train Summary | End of Epoch 19 | Time 4588.99s | Train Loss -15.766
+Valid Summary | End of Epoch 19 | Time 1018.85s | Valid Loss -15.091
+Test Summary | End of Epoch 19 | Time 349.01s | Test Loss -14.085
+Fund new best model, dict saved
+Train Summary | End of Epoch 20 | Time 4368.03s | Train Loss -15.859
+Valid Summary | End of Epoch 20 | Time 192.38s | Valid Loss -15.103
+Test Summary | End of Epoch 20 | Time 89.27s | Test Loss -14.283
+Fund new best model, dict saved
+Train Summary | End of Epoch 21 | Time 4021.69s | Train Loss -15.959
+Valid Summary | End of Epoch 21 | Time 156.92s | Valid Loss -15.181
+Test Summary | End of Epoch 21 | Time 93.99s | Test Loss -14.311
+Fund new best model, dict saved
+Train Summary | End of Epoch 22 | Time 3732.01s | Train Loss -16.080
+Valid Summary | End of Epoch 22 | Time 166.30s | Valid Loss -15.259
+Test Summary | End of Epoch 22 | Time 90.86s | Test Loss -14.203
+Fund new best model, dict saved
+Train Summary | End of Epoch 23 | Time 3837.06s | Train Loss -16.169
+Valid Summary | End of Epoch 23 | Time 164.20s | Valid Loss -15.224
+Test Summary | End of Epoch 23 | Time 89.65s | Test Loss -14.263
+Train Summary | End of Epoch 24 | Time 3705.64s | Train Loss -16.258
+Valid Summary | End of Epoch 24 | Time 150.90s | Valid Loss -15.267
+Test Summary | End of Epoch 24 | Time 103.33s | Test Loss -14.306
+Fund new best model, dict saved
+Train Summary | End of Epoch 25 | Time 3718.96s | Train Loss -16.333
+Valid Summary | End of Epoch 25 | Time 151.93s | Valid Loss -15.468
+Test Summary | End of Epoch 25 | Time 91.12s | Test Loss -14.471
+Fund new best model, dict saved
+Train Summary | End of Epoch 26 | Time 3706.48s | Train Loss -16.417
+Valid Summary | End of Epoch 26 | Time 150.13s | Valid Loss -15.419
+Test Summary | End of Epoch 26 | Time 90.13s | Test Loss -14.467
+Train Summary | End of Epoch 27 | Time 3716.12s | Train Loss -16.492
+Valid Summary | End of Epoch 27 | Time 162.75s | Valid Loss -15.465
+Test Summary | End of Epoch 27 | Time 90.12s | Test Loss -14.618
+Train Summary | End of Epoch 28 | Time 3710.79s | Train Loss -16.562
+Valid Summary | End of Epoch 28 | Time 166.82s | Valid Loss -15.588
+Test Summary | End of Epoch 28 | Time 88.77s | Test Loss -14.546
+Fund new best model, dict saved
+Train Summary | End of Epoch 29 | Time 3691.97s | Train Loss -16.644
+Valid Summary | End of Epoch 29 | Time 148.87s | Valid Loss -15.540
+Test Summary | End of Epoch 29 | Time 88.09s | Test Loss -14.519
+Train Summary | End of Epoch 30 | Time 3666.35s | Train Loss -16.716
+Valid Summary | End of Epoch 30 | Time 148.43s | Valid Loss -15.617
+Test Summary | End of Epoch 30 | Time 87.86s | Test Loss -14.751
+Fund new best model, dict saved
+Train Summary | End of Epoch 31 | Time 3665.29s | Train Loss -16.753
+Valid Summary | End of Epoch 31 | Time 148.32s | Valid Loss -15.601
+Test Summary | End of Epoch 31 | Time 87.97s | Test Loss -14.699
+Train Summary | End of Epoch 32 | Time 3657.31s | Train Loss -16.829
+Valid Summary | End of Epoch 32 | Time 160.97s | Valid Loss -15.640
+Test Summary | End of Epoch 32 | Time 87.82s | Test Loss -14.778
+Fund new best model, dict saved
+Train Summary | End of Epoch 33 | Time 3960.95s | Train Loss -16.886
+Valid Summary | End of Epoch 33 | Time 165.70s | Valid Loss -15.672
+Test Summary | End of Epoch 33 | Time 97.78s | Test Loss -14.672
+Fund new best model, dict saved
+Train Summary | End of Epoch 34 | Time 3731.62s | Train Loss -16.945
+Valid Summary | End of Epoch 34 | Time 160.92s | Valid Loss -15.797
+Test Summary | End of Epoch 34 | Time 87.86s | Test Loss -14.777
+Fund new best model, dict saved
+Train Summary | End of Epoch 35 | Time 3663.08s | Train Loss -17.012
+Valid Summary | End of Epoch 35 | Time 149.32s | Valid Loss -15.636
+Test Summary | End of Epoch 35 | Time 97.44s | Test Loss -14.591
+Train Summary | End of Epoch 36 | Time 3663.64s | Train Loss -17.056
+Valid Summary | End of Epoch 36 | Time 148.39s | Valid Loss -15.730
+Test Summary | End of Epoch 36 | Time 88.02s | Test Loss -14.757
+Train Summary | End of Epoch 37 | Time 3664.09s | Train Loss -17.105
+Valid Summary | End of Epoch 37 | Time 152.35s | Valid Loss -15.690
+Test Summary | End of Epoch 37 | Time 88.16s | Test Loss -14.760
+Train Summary | End of Epoch 38 | Time 3666.96s | Train Loss -17.158
+Valid Summary | End of Epoch 38 | Time 161.01s | Valid Loss -15.798
+Test Summary | End of Epoch 38 | Time 87.96s | Test Loss -14.834
+Fund new best model, dict saved
+Train Summary | End of Epoch 39 | Time 3654.69s | Train Loss -17.194
+Valid Summary | End of Epoch 39 | Time 148.63s | Valid Loss -15.771
+Test Summary | End of Epoch 39 | Time 99.80s | Test Loss -14.879
+Train Summary | End of Epoch 40 | Time 3685.59s | Train Loss -17.261
+Valid Summary | End of Epoch 40 | Time 151.00s | Valid Loss -15.928
+Test Summary | End of Epoch 40 | Time 89.89s | Test Loss -14.846
+Fund new best model, dict saved
+Train Summary | End of Epoch 41 | Time 3686.80s | Train Loss -17.297
+Valid Summary | End of Epoch 41 | Time 152.29s | Valid Loss -15.892
+Test Summary | End of Epoch 41 | Time 90.89s | Test Loss -14.891
+Train Summary | End of Epoch 42 | Time 3683.96s | Train Loss -17.338
+Valid Summary | End of Epoch 42 | Time 161.29s | Valid Loss -15.935
+Test Summary | End of Epoch 42 | Time 89.18s | Test Loss -15.069
+Fund new best model, dict saved
+Train Summary | End of Epoch 43 | Time 3687.27s | Train Loss -17.390
+Valid Summary | End of Epoch 43 | Time 163.23s | Valid Loss -15.859
+Test Summary | End of Epoch 43 | Time 89.96s | Test Loss -14.954
+Train Summary | End of Epoch 44 | Time 3687.79s | Train Loss -17.443
+Valid Summary | End of Epoch 44 | Time 150.76s | Valid Loss -15.926
+Test Summary | End of Epoch 44 | Time 89.11s | Test Loss -14.798
+Train Summary | End of Epoch 45 | Time 3689.18s | Train Loss -17.477
+Valid Summary | End of Epoch 45 | Time 150.50s | Valid Loss -15.999
+Test Summary | End of Epoch 45 | Time 89.13s | Test Loss -14.925
+Fund new best model, dict saved
+Train Summary | End of Epoch 46 | Time 3681.54s | Train Loss -17.505
+Valid Summary | End of Epoch 46 | Time 151.07s | Valid Loss -15.983
+Test Summary | End of Epoch 46 | Time 88.59s | Test Loss -15.006
+Train Summary | End of Epoch 47 | Time 3684.94s | Train Loss -17.537
+Valid Summary | End of Epoch 47 | Time 161.92s | Valid Loss -15.960
+Test Summary | End of Epoch 47 | Time 88.69s | Test Loss -15.132
+Train Summary | End of Epoch 48 | Time 3682.68s | Train Loss -17.581
+Valid Summary | End of Epoch 48 | Time 151.62s | Valid Loss -15.952
+Test Summary | End of Epoch 48 | Time 104.52s | Test Loss -14.946
+Learning rate adjusted to: 0.000500
+Train Summary | End of Epoch 49 | Time 3681.78s | Train Loss -17.986
+Valid Summary | End of Epoch 49 | Time 149.59s | Valid Loss -16.271
+Test Summary | End of Epoch 49 | Time 88.69s | Test Loss -15.289
+Fund new best model, dict saved
+Train Summary | End of Epoch 50 | Time 3684.49s | Train Loss -18.077
+Valid Summary | End of Epoch 50 | Time 150.56s | Valid Loss -16.251
+Test Summary | End of Epoch 50 | Time 89.71s | Test Loss -15.201
+Train Summary | End of Epoch 51 | Time 3667.81s | Train Loss -18.135
+Valid Summary | End of Epoch 51 | Time 160.34s | Valid Loss -16.265
+Test Summary | End of Epoch 51 | Time 88.39s | Test Loss -15.238
+Train Summary | End of Epoch 52 | Time 3646.07s | Train Loss -18.173
+Valid Summary | End of Epoch 52 | Time 148.16s | Valid Loss -16.273
+Test Summary | End of Epoch 52 | Time 97.96s | Test Loss -15.236
+Fund new best model, dict saved
+Train Summary | End of Epoch 53 | Time 3627.14s | Train Loss -18.205
+Valid Summary | End of Epoch 53 | Time 143.43s | Valid Loss -16.286
+Test Summary | End of Epoch 53 | Time 84.03s | Test Loss -15.287
+Fund new best model, dict saved
+Train Summary | End of Epoch 54 | Time 3538.45s | Train Loss -18.235
+Valid Summary | End of Epoch 54 | Time 148.31s | Valid Loss -16.260
+Test Summary | End of Epoch 54 | Time 87.69s | Test Loss -15.248
+Train Summary | End of Epoch 55 | Time 3540.12s | Train Loss -18.257
+Valid Summary | End of Epoch 55 | Time 142.85s | Valid Loss -16.267
+Test Summary | End of Epoch 55 | Time 85.45s | Test Loss -15.229
+Train Summary | End of Epoch 56 | Time 3538.72s | Train Loss -18.280
+Valid Summary | End of Epoch 56 | Time 156.46s | Valid Loss -16.271
+Test Summary | End of Epoch 56 | Time 84.58s | Test Loss -15.192
+Train Summary | End of Epoch 57 | Time 3539.10s | Train Loss -18.305
+Valid Summary | End of Epoch 57 | Time 141.81s | Valid Loss -16.226
+Test Summary | End of Epoch 57 | Time 85.85s | Test Loss -15.168
+Train Summary | End of Epoch 58 | Time 3547.03s | Train Loss -18.332
+Valid Summary | End of Epoch 58 | Time 144.13s | Valid Loss -16.264
+Test Summary | End of Epoch 58 | Time 84.14s | Test Loss -15.211
+Train Summary | End of Epoch 59 | Time 3595.39s | Train Loss -18.351
+Valid Summary | End of Epoch 59 | Time 173.54s | Valid Loss -16.280
+Test Summary | End of Epoch 59 | Time 87.10s | Test Loss -15.174
+Train Summary | End of Epoch 60 | Time 3648.56s | Train Loss -18.373
+Valid Summary | End of Epoch 60 | Time 143.21s | Valid Loss -16.269
+Test Summary | End of Epoch 60 | Time 84.07s | Test Loss -15.176
+Train Summary | End of Epoch 61 | Time 3542.69s | Train Loss -18.393
+Valid Summary | End of Epoch 61 | Time 141.58s | Valid Loss -16.286
+Test Summary | End of Epoch 61 | Time 84.86s | Test Loss -15.185
+Train Summary | End of Epoch 62 | Time 3545.60s | Train Loss -18.406
+Valid Summary | End of Epoch 62 | Time 151.59s | Valid Loss -16.274
+Test Summary | End of Epoch 62 | Time 96.30s | Test Loss -15.185
+Train Summary | End of Epoch 63 | Time 3574.11s | Train Loss -18.428
+Valid Summary | End of Epoch 63 | Time 157.95s | Valid Loss -16.292
+Test Summary | End of Epoch 63 | Time 89.64s | Test Loss -15.233
+Fund new best model, dict saved
+Train Summary | End of Epoch 64 | Time 3590.69s | Train Loss -18.446
+Valid Summary | End of Epoch 64 | Time 158.92s | Valid Loss -16.283
+Test Summary | End of Epoch 64 | Time 86.99s | Test Loss -15.169
+Train Summary | End of Epoch 65 | Time 3606.16s | Train Loss -18.466
+Valid Summary | End of Epoch 65 | Time 160.57s | Valid Loss -16.259
+Test Summary | End of Epoch 65 | Time 101.36s | Test Loss -15.211
+Train Summary | End of Epoch 66 | Time 3604.46s | Train Loss -18.480
+Valid Summary | End of Epoch 66 | Time 158.62s | Valid Loss -16.300
+Test Summary | End of Epoch 66 | Time 87.73s | Test Loss -15.265
+Fund new best model, dict saved
+Train Summary | End of Epoch 67 | Time 3635.25s | Train Loss -18.498
+Valid Summary | End of Epoch 67 | Time 159.82s | Valid Loss -16.271
+Test Summary | End of Epoch 67 | Time 87.39s | Test Loss -15.268
+Train Summary | End of Epoch 68 | Time 3632.13s | Train Loss -18.517
+Valid Summary | End of Epoch 68 | Time 150.54s | Valid Loss -16.250
+Test Summary | End of Epoch 68 | Time 107.25s | Test Loss -15.217
+Train Summary | End of Epoch 69 | Time 3622.80s | Train Loss -18.530
+Valid Summary | End of Epoch 69 | Time 147.70s | Valid Loss -16.291
+Test Summary | End of Epoch 69 | Time 86.06s | Test Loss -15.302
+Train Summary | End of Epoch 70 | Time 3577.97s | Train Loss -18.545
+Valid Summary | End of Epoch 70 | Time 158.36s | Valid Loss -16.284
+Test Summary | End of Epoch 70 | Time 85.98s | Test Loss -15.253
+Train Summary | End of Epoch 71 | Time 3575.23s | Train Loss -18.560
+Valid Summary | End of Epoch 71 | Time 144.53s | Valid Loss -16.319
+Test Summary | End of Epoch 71 | Time 87.90s | Test Loss -15.220
+Fund new best model, dict saved
+Train Summary | End of Epoch 72 | Time 3572.84s | Train Loss -18.578
+Valid Summary | End of Epoch 72 | Time 144.25s | Valid Loss -16.289
+Test Summary | End of Epoch 72 | Time 87.08s | Test Loss -15.195
+Train Summary | End of Epoch 73 | Time 3568.35s | Train Loss -18.591
+Valid Summary | End of Epoch 73 | Time 146.22s | Valid Loss -16.317
+Test Summary | End of Epoch 73 | Time 85.71s | Test Loss -15.309
+Train Summary | End of Epoch 74 | Time 3554.78s | Train Loss -18.605
+Valid Summary | End of Epoch 74 | Time 144.63s | Valid Loss -16.331
+Test Summary | End of Epoch 74 | Time 85.48s | Test Loss -15.277
+Fund new best model, dict saved
+Train Summary | End of Epoch 75 | Time 3546.52s | Train Loss -18.623
+Valid Summary | End of Epoch 75 | Time 143.70s | Valid Loss -16.321
+Test Summary | End of Epoch 75 | Time 97.76s | Test Loss -15.259
+Train Summary | End of Epoch 76 | Time 3547.12s | Train Loss -18.635
+Valid Summary | End of Epoch 76 | Time 145.72s | Valid Loss -16.318
+Test Summary | End of Epoch 76 | Time 84.53s | Test Loss -15.269
+Train Summary | End of Epoch 77 | Time 3542.04s | Train Loss -18.654
+Valid Summary | End of Epoch 77 | Time 155.78s | Valid Loss -16.325
+Test Summary | End of Epoch 77 | Time 84.67s | Test Loss -15.237
+Train Summary | End of Epoch 78 | Time 3544.82s | Train Loss -18.665
+Valid Summary | End of Epoch 78 | Time 142.75s | Valid Loss -16.332
+Test Summary | End of Epoch 78 | Time 84.98s | Test Loss -15.248
+Fund new best model, dict saved
+Train Summary | End of Epoch 79 | Time 3555.99s | Train Loss -18.678
+Valid Summary | End of Epoch 79 | Time 148.28s | Valid Loss -16.351
+Test Summary | End of Epoch 79 | Time 85.40s | Test Loss -15.286
+Fund new best model, dict saved
+Train Summary | End of Epoch 80 | Time 3545.45s | Train Loss -18.693
+Valid Summary | End of Epoch 80 | Time 145.40s | Valid Loss -16.353
+Test Summary | End of Epoch 80 | Time 85.37s | Test Loss -15.277
+Fund new best model, dict saved
+Train Summary | End of Epoch 81 | Time 3585.58s | Train Loss -18.705
+Valid Summary | End of Epoch 81 | Time 171.18s | Valid Loss -16.310
+Test Summary | End of Epoch 81 | Time 105.51s | Test Loss -15.239
+Train Summary | End of Epoch 82 | Time 3574.05s | Train Loss -18.718
+Valid Summary | End of Epoch 82 | Time 143.30s | Valid Loss -16.336
+Test Summary | End of Epoch 82 | Time 84.81s | Test Loss -15.257
+Train Summary | End of Epoch 83 | Time 3545.19s | Train Loss -18.730
+Valid Summary | End of Epoch 83 | Time 155.25s | Valid Loss -16.349
+Test Summary | End of Epoch 83 | Time 87.56s | Test Loss -15.346
+Train Summary | End of Epoch 84 | Time 3548.19s | Train Loss -18.747
+Valid Summary | End of Epoch 84 | Time 153.28s | Valid Loss -16.340
+Test Summary | End of Epoch 84 | Time 88.74s | Test Loss -15.236
+Train Summary | End of Epoch 85 | Time 3569.81s | Train Loss -18.758
+Valid Summary | End of Epoch 85 | Time 157.04s | Valid Loss -16.313
+Test Summary | End of Epoch 85 | Time 86.35s | Test Loss -15.273
+Train Summary | End of Epoch 86 | Time 3565.71s | Train Loss -18.767
+Valid Summary | End of Epoch 86 | Time 148.71s | Valid Loss -16.382
+Test Summary | End of Epoch 86 | Time 95.67s | Test Loss -15.284
+Fund new best model, dict saved
+Train Summary | End of Epoch 87 | Time 3575.28s | Train Loss -18.779
+Valid Summary | End of Epoch 87 | Time 146.40s | Valid Loss -16.391
+Test Summary | End of Epoch 87 | Time 94.48s | Test Loss -15.193
+Fund new best model, dict saved
+Train Summary | End of Epoch 88 | Time 3560.43s | Train Loss -18.792
+Valid Summary | End of Epoch 88 | Time 146.45s | Valid Loss -16.369
+Test Summary | End of Epoch 88 | Time 94.16s | Test Loss -15.254
+Train Summary | End of Epoch 89 | Time 3558.40s | Train Loss -18.802
+Valid Summary | End of Epoch 89 | Time 146.38s | Valid Loss -16.372
+Test Summary | End of Epoch 89 | Time 87.43s | Test Loss -15.226
+Train Summary | End of Epoch 90 | Time 3568.02s | Train Loss -18.818
+Valid Summary | End of Epoch 90 | Time 154.67s | Valid Loss -16.359
+Test Summary | End of Epoch 90 | Time 89.04s | Test Loss -15.292
+Train Summary | End of Epoch 91 | Time 3569.67s | Train Loss -18.828
+Valid Summary | End of Epoch 91 | Time 144.01s | Valid Loss -16.340
+Test Summary | End of Epoch 91 | Time 96.82s | Test Loss -15.248
+Train Summary | End of Epoch 92 | Time 3554.66s | Train Loss -18.838
+Valid Summary | End of Epoch 92 | Time 144.30s | Valid Loss -16.369
+Test Summary | End of Epoch 92 | Time 96.32s | Test Loss -15.294
+Train Summary | End of Epoch 93 | Time 3554.98s | Train Loss -18.846
+Valid Summary | End of Epoch 93 | Time 144.68s | Valid Loss -16.355
+Test Summary | End of Epoch 93 | Time 97.31s | Test Loss -15.283
+Train Summary | End of Epoch 94 | Time 3556.77s | Train Loss -18.860
+Valid Summary | End of Epoch 94 | Time 145.14s | Valid Loss -16.379
+Test Summary | End of Epoch 94 | Time 85.84s | Test Loss -15.270
+Train Summary | End of Epoch 95 | Time 3558.32s | Train Loss -18.870
+Valid Summary | End of Epoch 95 | Time 157.86s | Valid Loss -16.377
+Test Summary | End of Epoch 95 | Time 86.48s | Test Loss -15.281
+Train Summary | End of Epoch 96 | Time 3557.98s | Train Loss -18.881
+Valid Summary | End of Epoch 96 | Time 154.58s | Valid Loss -16.390
+Test Summary | End of Epoch 96 | Time 85.04s | Test Loss -15.273
+Train Summary | End of Epoch 97 | Time 3551.93s | Train Loss -18.898
+Valid Summary | End of Epoch 97 | Time 156.98s | Valid Loss -16.401
+Test Summary | End of Epoch 97 | Time 86.86s | Test Loss -15.228
+Fund new best model, dict saved
+Train Summary | End of Epoch 98 | Time 3545.57s | Train Loss -18.905
+Valid Summary | End of Epoch 98 | Time 143.70s | Valid Loss -16.403
+Test Summary | End of Epoch 98 | Time 84.91s | Test Loss -15.235
+Fund new best model, dict saved
+Train Summary | End of Epoch 99 | Time 3542.37s | Train Loss -18.911
+Valid Summary | End of Epoch 99 | Time 143.67s | Valid Loss -16.330
+Test Summary | End of Epoch 99 | Time 85.67s | Test Loss -15.195
+Train Summary | End of Epoch 100 | Time 3556.04s | Train Loss -18.924
+Valid Summary | End of Epoch 100 | Time 143.58s | Valid Loss -16.399
+Test Summary | End of Epoch 100 | Time 85.60s | Test Loss -15.286

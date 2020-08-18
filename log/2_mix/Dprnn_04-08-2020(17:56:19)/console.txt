@@ -1,0 +1,478 @@
+started on Dprnn_04-08-2020(17:56:19)
+
+Namespace(B=64, C=2, H=128, K=256, L=2, N=256, R=6, batch_size=2, continue_from='', cv_maxlen=8, distributed=False, epochs=100, keep_batchnorm_fp32=None, local_rank=0, log_name='Dprnn_04-08-2020(17:56:19)', lr=0.001, max_norm=5, num_workers=4, opt_level='O1', patch_torch_functions=None, sample_rate=8000, segment=4, test_dir='/data07/zexu/workspace/speech_separation/data/tt', train_dir='/data07/zexu/workspace/speech_separation/data/tr', use_tensorboard=1, valid_dir='/data07/zexu/workspace/speech_separation/data/cv', world_size=1)
+
+Total number of parameters: 2633473 
+
+dprnn(
+  (encoder): Encoder(
+    (conv1d_U): Conv1d(1, 256, kernel_size=(2,), stride=(1,), bias=False)
+  )
+  (separator): rnn(
+    (layer_norm): GroupNorm(1, 256, eps=1e-08, affine=True)
+    (bottleneck_conv1x1): Conv1d(256, 64, kernel_size=(1,), stride=(1,), bias=False)
+    (dual_rnn): ModuleList(
+      (0): Dual_RNN_Block(
+        (intra_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (inter_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (intra_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (inter_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (intra_linear): Linear(in_features=256, out_features=64, bias=True)
+        (inter_linear): Linear(in_features=256, out_features=64, bias=True)
+      )
+      (1): Dual_RNN_Block(
+        (intra_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (inter_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (intra_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (inter_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (intra_linear): Linear(in_features=256, out_features=64, bias=True)
+        (inter_linear): Linear(in_features=256, out_features=64, bias=True)
+      )
+      (2): Dual_RNN_Block(
+        (intra_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (inter_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (intra_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (inter_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (intra_linear): Linear(in_features=256, out_features=64, bias=True)
+        (inter_linear): Linear(in_features=256, out_features=64, bias=True)
+      )
+      (3): Dual_RNN_Block(
+        (intra_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (inter_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (intra_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (inter_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (intra_linear): Linear(in_features=256, out_features=64, bias=True)
+        (inter_linear): Linear(in_features=256, out_features=64, bias=True)
+      )
+      (4): Dual_RNN_Block(
+        (intra_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (inter_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (intra_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (inter_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (intra_linear): Linear(in_features=256, out_features=64, bias=True)
+        (inter_linear): Linear(in_features=256, out_features=64, bias=True)
+      )
+      (5): Dual_RNN_Block(
+        (intra_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (inter_rnn): LSTM(64, 128, batch_first=True, bidirectional=True)
+        (intra_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (inter_norm): GroupNorm(1, 64, eps=1e-08, affine=True)
+        (intra_linear): Linear(in_features=256, out_features=64, bias=True)
+        (inter_linear): Linear(in_features=256, out_features=64, bias=True)
+      )
+    )
+    (prelu): PReLU(num_parameters=1)
+    (mask_conv1x1): Conv1d(64, 512, kernel_size=(1,), stride=(1,), bias=False)
+  )
+  (decoder): Decoder(
+    (basis_signals): Linear(in_features=256, out_features=2, bias=False)
+  )
+)
+Drop 2925 utts(0.26 h) which is short than 32000 samples
+Selected optimization level O1:  Insert automatic casts around Pytorch functions and Tensor methods.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O1
+cast_model_type        : None
+patch_torch_functions  : True
+keep_batchnorm_fp32    : None
+master_weights         : None
+loss_scale             : dynamic
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O1
+cast_model_type        : None
+patch_torch_functions  : True
+keep_batchnorm_fp32    : None
+master_weights         : None
+loss_scale             : dynamic
+Warning:  multi_tensor_applier fused unscale kernel is unavailable, possibly because apex was installed without --cuda_ext --cpp_ext. Using Python fallback.  Original ImportError was: ModuleNotFoundError("No module named 'amp_C'",)
+Start new training
+/data07/zexu/workspace/speech_separation/src/baseline/dprnn/dprnn.py:297: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than tensor.new_tensor(sourceTensor).
+  frame = signal.new_tensor(frame).long()  # signal may in GPU or CPU
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 32768.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16384.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8192.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4096.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 2048.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1024.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 512.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 2048.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 2048.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 2048.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1024.0
+Train Summary | End of Epoch 1 | Time 8296.54s | Train Loss -6.886
+Valid Summary | End of Epoch 1 | Time 1734.07s | Valid Loss -9.559
+Test Summary | End of Epoch 1 | Time 1048.62s | Test Loss -9.226
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1024.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 512.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 256.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 512.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 256.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 256.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 512.0
+Train Summary | End of Epoch 2 | Time 7712.49s | Train Loss -10.255
+Valid Summary | End of Epoch 2 | Time 1108.42s | Valid Loss -10.969
+Test Summary | End of Epoch 2 | Time 650.04s | Test Loss -10.914
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 256.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 256.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 128.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 256.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 128.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 128.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Train Summary | End of Epoch 3 | Time 7729.12s | Train Loss -11.660
+Valid Summary | End of Epoch 3 | Time 1145.46s | Valid Loss -12.266
+Test Summary | End of Epoch 3 | Time 628.90s | Test Loss -12.108
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 128.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 128.0
+Train Summary | End of Epoch 4 | Time 7631.44s | Train Loss -12.641
+Valid Summary | End of Epoch 4 | Time 910.37s | Valid Loss -12.978
+Test Summary | End of Epoch 4 | Time 541.33s | Test Loss -12.818
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 128.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 128.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 128.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 32.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 128.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Train Summary | End of Epoch 5 | Time 7567.93s | Train Loss -13.390
+Valid Summary | End of Epoch 5 | Time 1225.90s | Valid Loss -13.622
+Test Summary | End of Epoch 5 | Time 732.88s | Test Loss -13.538
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 128.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 128.0
+Train Summary | End of Epoch 6 | Time 7648.48s | Train Loss -13.981
+Valid Summary | End of Epoch 6 | Time 1212.39s | Valid Loss -14.129
+Test Summary | End of Epoch 6 | Time 785.67s | Test Loss -13.952
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 128.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 128.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 128.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 128.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 32.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8.0
+Train Summary | End of Epoch 7 | Time 8417.31s | Train Loss -14.495
+Valid Summary | End of Epoch 7 | Time 1320.00s | Valid Loss -14.665
+Test Summary | End of Epoch 7 | Time 686.69s | Test Loss -14.495
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 128.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 32.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16.0
+Train Summary | End of Epoch 8 | Time 7733.20s | Train Loss -14.900
+Valid Summary | End of Epoch 8 | Time 834.31s | Valid Loss -14.853
+Test Summary | End of Epoch 8 | Time 485.62s | Test Loss -14.596
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 32.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Train Summary | End of Epoch 9 | Time 8209.64s | Train Loss -15.270
+Valid Summary | End of Epoch 9 | Time 1258.73s | Valid Loss -15.222
+Test Summary | End of Epoch 9 | Time 1054.75s | Test Loss -15.152
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 32.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Train Summary | End of Epoch 10 | Time 7977.32s | Train Loss -15.571
+Valid Summary | End of Epoch 10 | Time 878.47s | Valid Loss -15.596
+Test Summary | End of Epoch 10 | Time 536.45s | Test Loss -15.336
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 32.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 32.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Train Summary | End of Epoch 11 | Time 7569.86s | Train Loss -15.865
+Valid Summary | End of Epoch 11 | Time 897.03s | Valid Loss -15.622
+Test Summary | End of Epoch 11 | Time 539.30s | Test Loss -15.411
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 128.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 128.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 128.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 128.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 32.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8.0
+Train Summary | End of Epoch 12 | Time 7550.11s | Train Loss -16.123
+Valid Summary | End of Epoch 12 | Time 890.12s | Valid Loss -15.938
+Test Summary | End of Epoch 12 | Time 529.13s | Test Loss -15.815
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 64.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 32.0
+Train Summary | End of Epoch 13 | Time 7587.96s | Train Loss -16.348
+Valid Summary | End of Epoch 13 | Time 877.61s | Valid Loss -16.072
+Test Summary | End of Epoch 13 | Time 522.05s | Test Loss -15.740
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 2.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.5
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.25
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.25
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.0
+Train Summary | End of Epoch 14 | Time 7540.74s | Train Loss -16.523
+Valid Summary | End of Epoch 14 | Time 870.99s | Valid Loss -16.324
+Test Summary | End of Epoch 14 | Time 512.17s | Test Loss -16.208
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.0
+Train Summary | End of Epoch 15 | Time 7596.51s | Train Loss -16.730
+Valid Summary | End of Epoch 15 | Time 870.56s | Valid Loss -16.450
+Test Summary | End of Epoch 15 | Time 527.97s | Test Loss -16.364
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 2.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.5
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.25
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.25
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.0
+Train Summary | End of Epoch 16 | Time 7649.31s | Train Loss -16.913
+Valid Summary | End of Epoch 16 | Time 912.41s | Valid Loss -16.602
+Test Summary | End of Epoch 16 | Time 601.34s | Test Loss -16.537
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 2.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 2.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16.0
+Train Summary | End of Epoch 17 | Time 7797.48s | Train Loss -17.054
+Valid Summary | End of Epoch 17 | Time 984.60s | Valid Loss -16.687
+Test Summary | End of Epoch 17 | Time 634.22s | Test Loss -16.678
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8.0
+Train Summary | End of Epoch 18 | Time 7922.63s | Train Loss -17.196
+Valid Summary | End of Epoch 18 | Time 2815.16s | Valid Loss -16.714
+Test Summary | End of Epoch 18 | Time 552.09s | Test Loss -16.646
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 2.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.5
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.25
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.125
+Train Summary | End of Epoch 19 | Time 7860.32s | Train Loss -17.342
+Valid Summary | End of Epoch 19 | Time 944.42s | Valid Loss -16.957
+Test Summary | End of Epoch 19 | Time 616.36s | Test Loss -16.847
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 32.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 32.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16.0
+Train Summary | End of Epoch 20 | Time 7707.96s | Train Loss -17.466
+Valid Summary | End of Epoch 20 | Time 819.96s | Valid Loss -17.068
+Test Summary | End of Epoch 20 | Time 483.48s | Test Loss -16.926
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 32.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 2.0
+Train Summary | End of Epoch 21 | Time 7662.91s | Train Loss -17.595
+Valid Summary | End of Epoch 21 | Time 815.77s | Valid Loss -17.084
+Test Summary | End of Epoch 21 | Time 483.49s | Test Loss -17.073
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 2.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 2.0
+Train Summary | End of Epoch 22 | Time 7667.40s | Train Loss -17.684
+Valid Summary | End of Epoch 22 | Time 799.97s | Valid Loss -16.912
+Test Summary | End of Epoch 22 | Time 472.93s | Test Loss -16.794
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 2.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.0
+Train Summary | End of Epoch 23 | Time 7502.21s | Train Loss -17.786
+Valid Summary | End of Epoch 23 | Time 796.37s | Valid Loss -17.330
+Test Summary | End of Epoch 23 | Time 471.99s | Test Loss -17.357
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 32.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8.0
+Train Summary | End of Epoch 24 | Time 7518.00s | Train Loss -17.887
+Valid Summary | End of Epoch 24 | Time 803.20s | Valid Loss -17.380
+Test Summary | End of Epoch 24 | Time 475.77s | Test Loss -17.254
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 32.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 2.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.0
+Train Summary | End of Epoch 25 | Time 7570.72s | Train Loss -17.984
+Valid Summary | End of Epoch 25 | Time 817.49s | Valid Loss -17.306
+Test Summary | End of Epoch 25 | Time 489.51s | Test Loss -17.363
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 2.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.5
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.25
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.125
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.0625
+Train Summary | End of Epoch 26 | Time 7664.86s | Train Loss -18.075
+Valid Summary | End of Epoch 26 | Time 803.36s | Valid Loss -17.399
+Test Summary | End of Epoch 26 | Time 476.55s | Test Loss -17.374
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.0625
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.5
+Train Summary | End of Epoch 27 | Time 7556.40s | Train Loss -18.123
+Valid Summary | End of Epoch 27 | Time 806.24s | Valid Loss -17.505
+Test Summary | End of Epoch 27 | Time 478.20s | Test Loss -17.391
+Fund new best model, dict saved
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 2.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 2.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.0
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.5
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.25
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.125
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.0625
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.03125
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.015625
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.0078125
+Train Summary | End of Epoch 28 | Time 7698.73s | Train Loss -18.197
+Valid Summary | End of Epoch 28 | Time 823.33s | Valid Loss -17.354
+Test Summary | End of Epoch 28 | Time 487.08s | Test Loss -17.362
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.0078125
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.00390625
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.001953125
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.0009765625
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.00048828125
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.000244140625
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 0.0001220703125
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 6.103515625e-05
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 3.0517578125e-05
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.52587890625e-05
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.52587890625e-05
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 7.62939453125e-06
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 3.814697265625e-06
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 3.814697265625e-06
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 7.62939453125e-06
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 3.814697265625e-06
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.9073486328125e-06
+Train Summary | End of Epoch 29 | Time 7484.72s | Train Loss -2.479
+Valid Summary | End of Epoch 29 | Time 799.47s | Valid Loss 4.672
+Test Summary | End of Epoch 29 | Time 475.19s | Test Loss 5.439
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 3.814697265625e-06
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.9073486328125e-06
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.9073486328125e-06
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 9.5367431640625e-07
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 9.5367431640625e-07
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.76837158203125e-07
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 9.5367431640625e-07
+Train Summary | End of Epoch 30 | Time 7455.30s | Train Loss 8.315
+Valid Summary | End of Epoch 30 | Time 800.39s | Valid Loss 11.020
+Test Summary | End of Epoch 30 | Time 472.89s | Test Loss 11.984
+Learning rate adjusted to: 0.000500
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 9.5367431640625e-07
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 9.5367431640625e-07
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 9.5367431640625e-07
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 9.5367431640625e-07
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 9.5367431640625e-07
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 9.5367431640625e-07
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.76837158203125e-07
+Train Summary | End of Epoch 31 | Time 7442.23s | Train Loss 10.199
+Valid Summary | End of Epoch 31 | Time 798.88s | Valid Loss 12.399
+Test Summary | End of Epoch 31 | Time 472.62s | Test Loss 11.779
+Learning rate adjusted to: 0.000250
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 9.5367431640625e-07
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 9.5367431640625e-07
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 9.5367431640625e-07
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.9073486328125e-06
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 9.5367431640625e-07
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.76837158203125e-07
+Train Summary | End of Epoch 32 | Time 7440.18s | Train Loss 12.337
+Valid Summary | End of Epoch 32 | Time 802.33s | Valid Loss 12.355
+Test Summary | End of Epoch 32 | Time 472.24s | Test Loss 11.925
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 9.5367431640625e-07
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.76837158203125e-07
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.76837158203125e-07
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 9.5367431640625e-07
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 9.5367431640625e-07
+Train Summary | End of Epoch 33 | Time 7443.16s | Train Loss 12.427
+Valid Summary | End of Epoch 33 | Time 798.93s | Valid Loss 12.355
+Test Summary | End of Epoch 33 | Time 472.58s | Test Loss 11.925
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.9073486328125e-06
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 9.5367431640625e-07
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.9073486328125e-06
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.9073486328125e-06
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.9073486328125e-06
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 9.5367431640625e-07
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.76837158203125e-07
+Train Summary | End of Epoch 34 | Time 7485.97s | Train Loss 9.052
+Valid Summary | End of Epoch 34 | Time 805.79s | Valid Loss 13.983
+Test Summary | End of Epoch 34 | Time 474.76s | Test Loss 13.870
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4.76837158203125e-07
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 9.5367431640625e-07
+Train Summary | End of Epoch 35 | Time 7477.36s | Train Loss 12.413
+Valid Summary | End of Epoch 35 | Time 805.58s | Valid Loss 11.483
+Test Summary | End of Epoch 35 | Time 476.16s | Test Loss 11.901
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 3.814697265625e-06
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 3.814697265625e-06
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.52587890625e-05
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.52587890625e-05
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.52587890625e-05
+Train Summary | End of Epoch 36 | Time 7505.42s | Train Loss 10.718
+Valid Summary | End of Epoch 36 | Time 809.82s | Valid Loss 11.449
+Test Summary | End of Epoch 36 | Time 479.06s | Test Loss 11.916
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.52587890625e-05
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 3.0517578125e-05
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.52587890625e-05
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 3.0517578125e-05
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 3.0517578125e-05
+Train Summary | End of Epoch 37 | Time 7522.45s | Train Loss 14.732
+Valid Summary | End of Epoch 37 | Time 807.34s | Valid Loss 15.802
+Test Summary | End of Epoch 37 | Time 479.24s | Test Loss 15.458
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 3.0517578125e-05
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 1.52587890625e-05
