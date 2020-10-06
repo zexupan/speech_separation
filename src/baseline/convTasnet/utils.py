@@ -158,9 +158,12 @@ def load_mixtures_and_sources(batch):
         s2_path = s2_info[0]
         assert mix_info[1] == s1_info[1] and s1_info[1] == s2_info[1]
         # read wav file
-        mix, _ = librosa.load(mix_path, sr=sample_rate)
-        s1, _ = librosa.load(s1_path, sr=sample_rate)
-        s2, _ = librosa.load(s2_path, sr=sample_rate)
+        sr, mix = wavfile.read(mix_path)
+        assert sr == sample_rate
+        sr, s1 = wavfile.read(s1_path)
+        assert sr == sample_rate
+        sr, s2 = wavfile.read(s2_path)
+        assert sr == sample_rate
         # merge s1 and s2
         s = np.dstack((s1, s2))[0]  # T x C, C = 2
         utt_len = mix.shape[-1]
