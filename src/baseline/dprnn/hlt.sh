@@ -22,10 +22,7 @@ main.py \
 --valid_dir '/home/zexu/workspace/speech_separation/data/cv' \
 --test_dir '/home/zexu/workspace/speech_separation/data/tt' \
 \
---batch_size 32 \
-\
---L 20 \
---K 100 \
+--batch_size 3 \
 \
 --continue_from ${continue_from} \
 --log_name $log_name \
@@ -36,3 +33,5 @@ main.py \
 
 # --opt-level O0 \
 # --use_tensorboard 1 \
+# --L 20 \
+# --K 100 \
